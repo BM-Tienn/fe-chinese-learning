@@ -1,0 +1,1014 @@
+/* ======================================== */
+/* LIGHT MODE STYLES */
+/* ======================================== */
+
+/* Light mode progress bar */
+.progress-light .ant-progress-bg {
+  background-color: #6366f1 !important;
+}
+
+.progress-light .ant-progress-inner {
+  background-color: #e2e8f0 !important;
+}
+
+/* ======================================== */
+/* LIGHT MODE NOTIFICATION STYLES */
+/* ======================================== */
+
+/* Reapop Notification System - Light Mode */
+.reapop-notification {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+  color: #1e293b !important;
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+  margin-bottom: 8px !important;
+  max-width: 400px !important;
+  padding: 16px !important;
+  position: relative !important;
+  transition: all 0.2s ease !important;
+}
+
+.reapop-notification:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Notification header */
+.reapop-notification__header {
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  margin-bottom: 8px !important;
+}
+
+.reapop-notification__title {
+  color: #1e293b !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+  margin: 0 !important;
+  padding-right: 24px !important;
+}
+
+.reapop-notification__message {
+  color: #64748b !important;
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+  margin: 0 !important;
+}
+
+/* Notification close button */
+.reapop-notification__close-button {
+  background: transparent !important;
+  border: none !important;
+  color: #94a3b8 !important;
+  cursor: pointer !important;
+  font-size: 16px !important;
+  line-height: 1 !important;
+  padding: 4px !important;
+  position: absolute !important;
+  right: 12px !important;
+  top: 12px !important;
+  transition: all 0.2s ease !important;
+}
+
+.reapop-notification__close-button:hover {
+  color: #64748b !important;
+  background-color: #f1f5f9 !important;
+  border-radius: 4px !important;
+}
+
+/* Notification status indicators */
+.reapop-notification--success {
+  border-left: 4px solid #22c55e !important;
+}
+
+.reapop-notification--success .reapop-notification__title {
+  color: #15803d !important;
+}
+
+.reapop-notification--error {
+  border-left: 4px solid #ef4444 !important;
+}
+
+.reapop-notification--error .reapop-notification__title {
+  color: #dc2626 !important;
+}
+
+.reapop-notification--warning {
+  border-left: 4px solid #f59e0b !important;
+}
+
+.reapop-notification--warning .reapop-notification__title {
+  color: #d97706 !important;
+}
+
+.reapop-notification--info {
+  border-left: 4px solid #6366f1 !important;
+}
+
+.reapop-notification--info .reapop-notification__title {
+  color: #4f46e5 !important;
+}
+
+/* Notification icon */
+.reapop-notification__icon {
+  margin-right: 12px !important;
+  flex-shrink: 0 !important;
+}
+
+.reapop-notification--success .reapop-notification__icon {
+  color: #22c55e !important;
+}
+
+.reapop-notification--error .reapop-notification__icon {
+  color: #ef4444 !important;
+}
+
+.reapop-notification--warning .reapop-notification__icon {
+  color: #f59e0b !important;
+}
+
+.reapop-notification--info .reapop-notification__icon {
+  color: #6366f1 !important;
+}
+
+/* Notification container */
+.reapop-notifications-container {
+  z-index: 9999 !important;
+}
+
+/* Notification animation */
+.reapop-notification-enter {
+  opacity: 0 !important;
+  transform: translateX(100%) !important;
+}
+
+.reapop-notification-enter-active {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+  transition: all 0.3s ease-out !important;
+}
+
+.reapop-notification-exit {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+}
+
+.reapop-notification-exit-active {
+  opacity: 0 !important;
+  transform: translateX(100%) !important;
+  transition: all 0.3s ease-in !important;
+}
+
+/* Light Mode Ant Design Theme Overrides */
+.ant-card {
+  border-radius: 8px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.ant-card:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.ant-btn {
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.ant-btn-primary {
+  background-color: #6366f1;
+  border-color: #6366f1;
+  color: #ffffff;
+}
+
+.ant-btn-primary:hover {
+  background-color: #5855eb;
+  border-color: #5855eb;
+  color: #ffffff;
+}
+
+.ant-btn-primary:active {
+  background-color: #4f46e5;
+  border-color: #4f46e5;
+}
+
+/* Default button styles */
+.ant-btn-default {
+  background-color: #ffffff;
+  border-color: #d1d5db;
+  color: #1e293b;
+}
+
+.ant-btn-default:hover {
+  background-color: #f8fafc;
+  border-color: #6366f1;
+  color: #6366f1;
+}
+
+.ant-btn-default:active {
+  background-color: #f1f5f9;
+  border-color: #5855eb;
+  color: #5855eb;
+}
+
+.ant-input {
+  border-radius: 6px;
+  border-color: #d1d5db;
+  background-color: #ffffff;
+  color: #1e293b;
+  transition: all 0.2s ease;
+}
+
+.ant-input:hover {
+  border-color: #6366f1;
+  background-color: #ffffff;
+}
+
+.ant-input:focus,
+.ant-input-focused {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+  background-color: #ffffff;
+}
+
+.ant-input::placeholder {
+  color: #9ca3af;
+}
+
+.ant-progress-bg {
+  background-color: #6366f1;
+}
+
+.ant-progress-inner {
+  border-radius: 4px;
+}
+
+.ant-badge-count {
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.ant-tag {
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 12px;
+  padding: 2px 8px;
+  border: none;
+}
+
+/* HSK Level Tags */
+.ant-tag-blue {
+  background-color: #3b82f6;
+  color: #ffffff;
+}
+
+.ant-tag-green {
+  background-color: #10b981;
+  color: #ffffff;
+}
+
+.ant-tag-purple {
+  background-color: #8b5cf6;
+  color: #ffffff;
+}
+
+.ant-tag-orange {
+  background-color: #f59e0b;
+  color: #ffffff;
+}
+
+.ant-tag-red {
+  background-color: #ef4444;
+  color: #ffffff;
+}
+
+.ant-tag-cyan {
+  background-color: #06b6d4;
+  color: #ffffff;
+}
+
+/* Light Mode Table Styles */
+.ant-table {
+  background-color: #ffffff;
+  color: #1e293b;
+}
+
+.ant-table-thead > tr > th {
+  background-color: #f8fafc;
+  color: #1e293b;
+  border-bottom: 1px solid #e2e8f0;
+  font-weight: 600;
+}
+
+.ant-table-thead > tr > th:hover {
+  background-color: #f1f5f9;
+  color: #0f172a;
+}
+
+.ant-table-tbody > tr > td {
+  background-color: #ffffff;
+  color: #1e293b;
+  border-bottom: 1px solid #f1f5f9;
+  transition: all 0.2s ease;
+}
+
+.ant-table-tbody > tr:hover > td {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+  transition: all 0.2s ease;
+}
+
+.ant-table-tbody > tr.ant-table-row-selected > td {
+  background-color: rgba(99, 102, 241, 0.08) !important;
+  color: #0f172a !important;
+  border-left: 3px solid #6366f1;
+}
+
+.ant-table-tbody > tr.ant-table-row-selected:hover > td {
+  background-color: rgba(99, 102, 241, 0.12) !important;
+}
+
+.ant-table-placeholder {
+  background-color: #ffffff;
+}
+
+.ant-table-placeholder .ant-table-cell {
+  background-color: #ffffff;
+  color: #64748b;
+}
+
+/* Light Mode Table Container */
+.ant-table-container {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.ant-table-thead > tr:first-child > th:first-child {
+  border-top-left-radius: 8px;
+}
+
+.ant-table-thead > tr:first-child > th:last-child {
+  border-top-right-radius: 8px;
+}
+
+.ant-table-tbody > tr:last-child > td:first-child {
+  border-bottom-left-radius: 8px;
+}
+
+.ant-table-tbody > tr:last-child > td:last-child {
+  border-bottom-right-radius: 8px;
+}
+
+/* Light Mode Modal Styles */
+.ant-modal {
+  color: #1e293b;
+}
+
+.ant-modal-content {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.ant-modal-header {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+.ant-modal-title {
+  color: #1e293b !important;
+}
+
+.ant-modal-body {
+  background-color: #ffffff !important;
+  color: #1e293b !important;
+}
+
+.ant-modal-footer {
+  background-color: #ffffff !important;
+  border-top: 1px solid #e2e8f0 !important;
+}
+
+.ant-modal-close {
+  color: #64748b !important;
+}
+
+.ant-modal-close:hover {
+  color: #1e293b !important;
+}
+
+/* Light Mode Form Styles */
+.ant-form-item-label > label {
+  color: #1e293b !important;
+}
+
+.ant-form-item-explain-error {
+  color: #ef4444 !important;
+}
+
+.ant-form-item-explain-success {
+  color: #22c55e !important;
+}
+
+.ant-form-item-explain-warning {
+  color: #f59e0b !important;
+}
+
+/* Light Mode Select Styles */
+.ant-select {
+  background-color: #ffffff !important;
+  border-color: #d1d5db !important;
+  color: #1e293b !important;
+  transition: all 0.2s ease;
+}
+
+.ant-select:hover {
+  border-color: #6366f1 !important;
+  background-color: #ffffff !important;
+}
+
+.ant-select:focus,
+.ant-select-focused {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2) !important;
+  background-color: #ffffff !important;
+}
+
+.ant-select-selector {
+  background-color: #ffffff !important;
+  border-color: #d1d5db !important;
+  color: #1e293b !important;
+}
+
+.ant-select-selector:hover {
+  border-color: #6366f1 !important;
+  background-color: #ffffff !important;
+}
+
+.ant-select-focused .ant-select-selector {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2) !important;
+  background-color: #ffffff !important;
+}
+
+.ant-select-selection-placeholder {
+  color: #9ca3af !important;
+}
+
+.ant-select-arrow {
+  color: #9ca3af !important;
+}
+
+.ant-select-clear {
+  color: #9ca3af !important;
+  background-color: #ffffff !important;
+}
+
+.ant-select-clear:hover {
+  color: #1e293b !important;
+  background-color: #ffffff !important;
+}
+
+/* Light Mode Select Dropdown */
+.ant-select-dropdown {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+}
+
+.ant-select-item {
+  color: #1e293b !important;
+  transition: all 0.2s ease;
+}
+
+.ant-select-item:hover {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+.ant-select-item-option-active {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+.ant-select-item-option-selected {
+  background-color: #6366f1 !important;
+  color: #ffffff !important;
+  font-weight: 600;
+}
+
+.ant-select-item-option-selected:hover {
+  background-color: #6366f1 !important;
+  color: #ffffff !important;
+}
+
+/* Light Mode Pagination */
+.ant-pagination {
+  color: #1e293b;
+}
+
+.ant-pagination-item {
+  background-color: #ffffff;
+  border-color: #d1d5db;
+  color: #1e293b;
+}
+
+.ant-pagination-item:hover {
+  border-color: #6366f1;
+  color: #6366f1;
+}
+
+.ant-pagination-item-active {
+  background-color: #6366f1;
+  border-color: #6366f1;
+  color: #ffffff;
+}
+
+.ant-pagination-item-active a {
+  color: #ffffff !important;
+  font-weight: 600;
+}
+
+.ant-pagination-item-active:hover {
+  background-color: #5855eb;
+  border-color: #5855eb;
+}
+
+.ant-pagination-item-active:hover a {
+  color: #ffffff !important;
+}
+
+.ant-pagination-prev,
+.ant-pagination-next {
+  background-color: #ffffff;
+  border-color: #d1d5db;
+  color: #1e293b;
+}
+
+.ant-pagination-prev:hover,
+.ant-pagination-next:hover {
+  border-color: #6366f1;
+  color: #6366f1;
+}
+
+/* Light Mode for pagination ellipsis */
+.ant-pagination-item-ellipsis {
+  color: #64748b !important;
+}
+
+/* Light Mode Pagination Details */
+.ant-pagination-options {
+  color: #64748b;
+}
+
+.ant-pagination-options .ant-select {
+  margin-left: 8px;
+}
+
+.ant-pagination-options .ant-select-selector {
+  border-radius: 4px;
+  border-color: #d1d5db;
+  background-color: #ffffff;
+  color: #1e293b;
+}
+
+.ant-pagination-options .ant-select:hover .ant-select-selector {
+  border-color: #6366f1;
+}
+
+.ant-pagination-options .ant-select-focused .ant-select-selector {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+/* Pagination text styling */
+.ant-pagination-total-text {
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* Light Mode Search and Filter Area */
+.ant-table-wrapper .ant-table-toolbar {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 16px;
+  margin-bottom: 0;
+}
+
+.ant-table-wrapper .ant-table-toolbar .ant-input-search {
+  max-width: 300px;
+}
+
+.ant-table-wrapper .ant-table-toolbar .ant-input-search .ant-input {
+  border-radius: 6px 0 0 6px;
+  border-right: none;
+}
+
+.ant-table-wrapper .ant-table-toolbar .ant-input-search .ant-input-search-button {
+  border-radius: 0 6px 6px 0;
+  border-left: none;
+  background-color: #6366f1;
+  border-color: #6366f1;
+  color: #ffffff;
+}
+
+.ant-table-wrapper .ant-table-toolbar .ant-input-search .ant-input-search-button:hover {
+  background-color: #5855eb;
+  border-color: #5855eb;
+}
+
+/* Filter buttons styling */
+.ant-table-wrapper .ant-table-toolbar .ant-btn {
+  margin-left: 8px;
+}
+
+/* Light Mode Popconfirm */
+.ant-popover {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+}
+
+.ant-popover-title {
+  color: #1e293b;
+}
+
+.ant-popover-inner-content {
+  color: #1e293b;
+}
+
+/* Light Mode Tooltip */
+.ant-tooltip {
+  background-color: #1e293b;
+}
+
+.ant-tooltip-inner {
+  background-color: #1e293b;
+  color: #ffffff;
+}
+
+/* Light Mode Menu */
+.ant-menu {
+  background-color: #ffffff;
+  color: #1e293b;
+}
+
+.ant-menu-item {
+  color: #64748b;
+  background-color: transparent;
+  border-radius: 6px;
+  margin: 2px 8px;
+}
+
+.ant-menu-item:hover {
+  color: #1e293b;
+  background-color: #f8fafc;
+}
+
+.ant-menu-item-selected {
+  color: #6366f1;
+  background-color: rgba(99, 102, 241, 0.1);
+}
+
+.ant-menu-item-selected::after {
+  border-right-color: #6366f1;
+}
+
+.ant-menu-inline {
+  border-right: none;
+}
+
+.ant-menu-item .anticon {
+  color: inherit;
+}
+
+/* Light Mode for Headings */
+h1, h2, h3, h4, h5, h6 {
+  color: #1e293b !important;
+}
+
+/* Light Mode Action Buttons in Table */
+.ant-table-tbody .ant-btn {
+  border-radius: 4px;
+  padding: 4px 8px;
+  height: auto;
+  font-size: 12px;
+  transition: all 0.2s ease;
+}
+
+.ant-table-tbody .ant-btn-text {
+  color: #64748b;
+  background-color: transparent;
+  border: none;
+}
+
+.ant-table-tbody .ant-btn-text:hover {
+  color: #6366f1;
+  background-color: rgba(99, 102, 241, 0.1);
+}
+
+.ant-table-tbody .ant-btn-text:active {
+  color: #5855eb;
+  background-color: rgba(99, 102, 241, 0.15);
+}
+
+/* Delete button special styling */
+.ant-table-tbody .ant-btn-dangerous {
+  color: #ef4444;
+}
+
+.ant-table-tbody .ant-btn-dangerous:hover {
+  color: #dc2626;
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+.ant-table-tbody .ant-btn-dangerous:active {
+  color: #b91c1c;
+  background-color: rgba(239, 68, 68, 0.15);
+}
+
+/* Header Button Styles - Light Mode */
+header button {
+  background-color: transparent;
+  border: none;
+  color: #64748b;
+  transition: all 0.2s ease;
+}
+
+header button:hover {
+  background-color: #f1f5f9 !important;
+  color: #1e293b;
+}
+
+/* ======================================== */
+/* LIGHT MODE AUTOFILL STYLES */
+/* ======================================== */
+
+/* Light Mode Autofill Styles */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
+  -webkit-text-fill-color: #1e293b !important;
+  transition: background-color 5000s ease-in-out 0s;
+  background-color: #ffffff !important;
+  border-color: #6366f1 !important;
+}
+
+/* Autofill for password fields */
+input[type="password"]:-webkit-autofill,
+input[type="password"]:-webkit-autofill:hover,
+input[type="password"]:-webkit-autofill:focus,
+input[type="password"]:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
+  -webkit-text-fill-color: #1e293b !important;
+  transition: background-color 5000s ease-in-out 0s;
+  background-color: #ffffff !important;
+  border-color: #6366f1 !important;
+}
+
+/* Autofill for email fields */
+input[type="email"]:-webkit-autofill,
+input[type="email"]:-webkit-autofill:hover,
+input[type="email"]:-webkit-autofill:focus,
+input[type="email"]:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
+  -webkit-text-fill-color: #1e293b !important;
+  transition: background-color 5000s ease-in-out 0s;
+  background-color: #ffffff !important;
+  border-color: #6366f1 !important;
+}
+
+/* Ant Design Input Autofill */
+.ant-input:-webkit-autofill,
+.ant-input:-webkit-autofill:hover,
+.ant-input:-webkit-autofill:focus,
+.ant-input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
+  -webkit-text-fill-color: #1e293b !important;
+  transition: background-color 5000s ease-in-out 0s;
+  background-color: #ffffff !important;
+  border-color: #6366f1 !important;
+}
+
+/* Ant Design Password Input Autofill */
+.ant-input-password:-webkit-autofill,
+.ant-input-password:-webkit-autofill:hover,
+.ant-input-password:-webkit-autofill:focus,
+.ant-input-password:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
+  -webkit-text-fill-color: #1e293b !important;
+  transition: background-color 5000s ease-in-out 0s;
+  background-color: #ffffff !important;
+  border-color: #6366f1 !important;
+}
+
+.ant-input-password .ant-input:-webkit-autofill,
+.ant-input-password .ant-input:-webkit-autofill:hover,
+.ant-input-password .ant-input:-webkit-autofill:focus,
+.ant-input-password .ant-input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
+  -webkit-text-fill-color: #1e293b !important;
+  transition: background-color 5000s ease-in-out 0s;
+  background-color: #ffffff !important;
+  border-color: #6366f1 !important;
+}
+
+/* Firefox Autofill Styles */
+input:-moz-autofill,
+input:-moz-autofill:focus {
+  background-color: #ffffff !important;
+  color: #1e293b !important;
+  border-color: #6366f1 !important;
+}
+
+/* Edge Autofill Styles */
+input:-ms-input-placeholder {
+  color: #9ca3af !important;
+}
+
+/* Additional autofill overrides for better compatibility */
+input:autofill {
+  background-color: #ffffff !important;
+  color: #1e293b !important;
+  border-color: #6366f1 !important;
+}
+
+/* Specific styles for login/register forms */
+.login-form input:-webkit-autofill,
+.register-form input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
+  -webkit-text-fill-color: #1e293b !important;
+}
+
+/* ======================================== */
+/* LIGHT MODE AUTOFILL SUGGESTION POPUP STYLES */
+/* ======================================== */
+
+/* Light Mode - Autofill suggestion popup */
+input:-webkit-autofill + .ant-input-suffix,
+.ant-input:-webkit-autofill + .ant-input-suffix {
+  background-color: #ffffff !important;
+  color: #1e293b !important;
+}
+
+/* Chrome/Safari autofill suggestion popup */
+input::-webkit-credentials-auto-fill-button {
+  background-color: #ffffff !important;
+  border: 1px solid #d1d5db !important;
+  border-radius: 4px !important;
+}
+
+/* Firefox autofill suggestion popup */
+input:-moz-autofill + .ant-input-suffix {
+  background-color: #ffffff !important;
+  color: #1e293b !important;
+}
+
+/* Edge autofill suggestion popup */
+input:-ms-input-placeholder + .ant-input-suffix {
+  background-color: #ffffff !important;
+  color: #1e293b !important;
+}
+
+/* Override browser's autofill suggestion popup */
+*::-webkit-credentials-auto-fill-button {
+  background-color: #ffffff !important;
+  border: 1px solid #d1d5db !important;
+  border-radius: 4px !important;
+  color: #1e293b !important;
+}
+
+/* Chrome autofill suggestion popup container */
+div[data-testid="autofill-suggestion"] {
+  background-color: #ffffff !important;
+  border: 1px solid #d1d5db !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+  color: #1e293b !important;
+}
+
+/* Chrome autofill suggestion items */
+div[data-testid="autofill-suggestion"] > div {
+  background-color: #ffffff !important;
+  color: #1e293b !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+}
+
+div[data-testid="autofill-suggestion"] > div:hover {
+  background-color: #f8fafc !important;
+  color: #1e293b !important;
+}
+
+/* Chrome autofill suggestion icons */
+div[data-testid="autofill-suggestion"] svg,
+div[data-testid="autofill-dropdown"] svg,
+div[data-testid="autofill-popup"] svg,
+div[class*="autofill-suggestion"] svg,
+div[class*="autofill-dropdown"] svg,
+div[class*="autofill-popup"] svg,
+div[class*="suggestion-list"] svg,
+div[class*="dropdown-list"] svg,
+div[class*="popup-list"] svg,
+div[role="option"][class*="autofill"] svg,
+div[role="option"][class*="suggestion"] svg,
+div[role="option"][class*="dropdown"] svg,
+div[data-testid="autofill-suggestion"] img,
+div[data-testid="autofill-dropdown"] img,
+div[data-testid="autofill-popup"] img,
+div[class*="autofill-suggestion"] img,
+div[class*="autofill-dropdown"] img,
+div[class*="autofill-popup"] img,
+div[class*="suggestion-list"] img,
+div[class*="dropdown-list"] img,
+div[class*="popup-list"] img,
+div[role="option"][class*="autofill"] img,
+div[role="option"][class*="suggestion"] img,
+div[role="option"][class*="dropdown"] img {
+  filter: brightness(0) saturate(100%) invert(20%) sepia(10%) saturate(1000%) hue-rotate(200deg) brightness(90%) contrast(90%) !important;
+}
+
+/* ======================================== */
+/* CHROME AUTOFILL POPUP - LIGHT MODE STYLING */
+/* ======================================== */
+
+/* Target Chrome's autofill popup specifically */
+div[data-testid="autofill-suggestion"],
+div[data-testid="autofill-dropdown"],
+div[data-testid="autofill-popup"],
+div[class*="autofill-suggestion"],
+div[class*="autofill-dropdown"],
+div[class*="autofill-popup"],
+div[class*="suggestion-list"],
+div[class*="dropdown-list"],
+div[class*="popup-list"],
+div[role="listbox"][class*="autofill"],
+div[role="listbox"][class*="suggestion"],
+div[role="listbox"][class*="dropdown"] {
+  background-color: #ffffff !important;
+  border: 1px solid #d1d5db !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+  color: #1e293b !important;
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+}
+
+/* Chrome autofill popup items */
+div[data-testid="autofill-suggestion"] > div,
+div[data-testid="autofill-dropdown"] > div,
+div[data-testid="autofill-popup"] > div,
+div[class*="autofill-suggestion"] > div,
+div[class*="autofill-dropdown"] > div,
+div[class*="autofill-popup"] > div,
+div[class*="suggestion-list"] > div,
+div[class*="dropdown-list"] > div,
+div[class*="popup-list"] > div,
+div[role="option"][class*="autofill"],
+div[role="option"][class*="suggestion"],
+div[role="option"][class*="dropdown"] {
+  background-color: #ffffff !important;
+  color: #1e293b !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  padding: 8px 12px !important;
+  transition: all 0.2s ease !important;
+}
+
+/* Chrome autofill popup items hover */
+div[data-testid="autofill-suggestion"] > div:hover,
+div[data-testid="autofill-dropdown"] > div:hover,
+div[data-testid="autofill-popup"] > div:hover,
+div[class*="autofill-suggestion"] > div:hover,
+div[class*="autofill-dropdown"] > div:hover,
+div[class*="autofill-popup"] > div:hover,
+div[class*="suggestion-list"] > div:hover,
+div[class*="dropdown-list"] > div:hover,
+div[class*="popup-list"] > div:hover,
+div[role="option"][class*="autofill"]:hover,
+div[role="option"][class*="suggestion"]:hover,
+div[role="option"][class*="dropdown"]:hover {
+  background-color: #f8fafc !important;
+  color: #1e293b !important;
+}
+
+/* Chrome autofill popup text */
+div[data-testid="autofill-suggestion"] span,
+div[data-testid="autofill-dropdown"] span,
+div[data-testid="autofill-popup"] span,
+div[class*="autofill-suggestion"] span,
+div[class*="autofill-dropdown"] span,
+div[class*="autofill-popup"] span,
+div[class*="suggestion-list"] span,
+div[class*="dropdown-list"] span,
+div[class*="popup-list"] span,
+div[role="option"][class*="autofill"] span,
+div[role="option"][class*="suggestion"] span,
+div[role="option"][class*="dropdown"] span {
+  color: #1e293b !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}

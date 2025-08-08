@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import {
   Table,
   Button,
   Input,
   Select,
   Space,
-  message,
+  notification,
   Popconfirm,
   Card,
   Typography,
@@ -88,77 +88,87 @@ function BaseAdminTable<T extends { _id: string }>({
     setFilteredData(filtered);
   }, [data, searchText, filterValues]);
 
-  const handleDelete = async (record: T) => {
-    try {
-      if (onDelete) {
-        await onDelete(record);
-        message.success('Xóa thành công');
+  const handleDelete = useCallback(
+    async (record: T) => {
+      try {
+        if (onDelete) {
+          await onDelete(record);
+          notification.success({
+            message: 'Xóa thành công',
+          });
+        }
+      } catch (error) {
+        notification.error({
+          message: 'Có lỗi xảy ra khi xóa',
+        });
       }
-    } catch (error) {
-      message.error('Có lỗi xảy ra khi xóa');
-    }
-  };
+    },
+    [onDelete],
+  );
 
-  const actionColumns: ColumnsType<T> = [
-    {
-      title: 'Thao tác',
-      key: 'actions',
-      width: 150,
-      render: (_, record) => (
-        <Space size="small">
-          {onView && (
-            <Tooltip title="Xem chi tiết">
-              <Button
-                type="text"
-                size="small"
-                icon={<Eye className="w-4 h-4" />}
-                onClick={() => onView(record)}
-                className="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
-              />
-            </Tooltip>
-          )}
-          {onEdit && (
-            <Tooltip title="Chỉnh sửa">
-              <Button
-                type="text"
-                size="small"
-                icon={<Edit className="w-4 h-4" />}
-                onClick={() => onEdit(record)}
-                className="text-green-500 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300"
-              />
-            </Tooltip>
-          )}
-          {onDelete && (
-            <Tooltip title="Xóa">
-              <Popconfirm
-                title="Bạn có chắc chắn muốn xóa?"
-                description="Hành động này không thể hoàn tác."
-                onConfirm={() => handleDelete(record)}
-                okText="Xóa"
-                cancelText="Hủy"
-              >
+  const actionColumns: ColumnsType<T> = useMemo(
+    () => [
+      {
+        title: 'Thao tác',
+        key: 'actions',
+        width: 150,
+        render: (_, record) => (
+          <Space size="small">
+            {onView && (
+              <Tooltip title="Xem chi tiết">
                 <Button
                   type="text"
                   size="small"
-                  danger
-                  icon={<Delete className="w-4 h-4" />}
-                  className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
+                  icon={<Eye className="w-4 h-4" />}
+                  onClick={() => onView(record)}
                 />
-              </Popconfirm>
-            </Tooltip>
-          )}
-        </Space>
-      ),
-    },
-  ];
+              </Tooltip>
+            )}
+            {onEdit && (
+              <Tooltip title="Chỉnh sửa">
+                <Button
+                  type="text"
+                  size="small"
+                  icon={<Edit className="w-4 h-4" />}
+                  onClick={() => onEdit(record)}
+                />
+              </Tooltip>
+            )}
+            {onDelete && (
+              <Tooltip title="Xóa">
+                <Popconfirm
+                  title="Bạn có chắc chắn muốn xóa?"
+                  description="Hành động này không thể hoàn tác."
+                  onConfirm={() => handleDelete(record)}
+                  okText="Xóa"
+                  cancelText="Hủy"
+                >
+                  <Button
+                    type="text"
+                    size="small"
+                    danger
+                    icon={<Delete className="w-4 h-4" />}
+                  />
+                </Popconfirm>
+              </Tooltip>
+            )}
+          </Space>
+        ),
+      },
+    ],
+    [onView, onEdit, onDelete, handleDelete],
+  );
 
-  const allColumns = [...columns, ...actionColumns];
+  const allColumns = useMemo(
+    () => [...columns, ...actionColumns],
+    [columns, actionColumns],
+  );
 
   return (
     <div className="space-y-4">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <Title level={3} className="!mb-0 text-slate-800 dark:text-slate-200">
+        <Title level={3} className="!mb-0">
           {title}
         </Title>
         <Space>
@@ -167,7 +177,6 @@ function BaseAdminTable<T extends { _id: string }>({
               icon={<RefreshCw className="w-4 h-4" />}
               onClick={onRefresh}
               loading={loading}
-              className="bg-white dark:bg-slate-700 border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-600"
             >
               Làm mới
             </Button>
@@ -177,7 +186,6 @@ function BaseAdminTable<T extends { _id: string }>({
               type="primary"
               icon={<Plus className="w-4 h-4" />}
               onClick={onCreate}
-              className="bg-blue-500 hover:bg-blue-600 border-blue-500 hover:border-blue-600"
             >
               Tạo mới
             </Button>
@@ -186,19 +194,16 @@ function BaseAdminTable<T extends { _id: string }>({
       </div>
 
       {/* Filters and Search */}
-      <Card className="bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm">
+      <Card>
         <div className="flex flex-wrap gap-4 items-end">
           {/* Search */}
           <div className="flex-1 min-w-[200px]">
             <Input
               placeholder={searchPlaceholder}
-              prefix={
-                <Search className="w-4 h-4 text-slate-400 dark:text-slate-500" />
-              }
+              prefix={<Search className="w-4 h-4" />}
               value={searchText}
               onChange={e => setSearchText(e.target.value)}
               allowClear
-              className="bg-white dark:bg-slate-700 border-slate-200 dark:border-slate-600 text-slate-900 dark:text-slate-100 placeholder-slate-500 dark:placeholder-slate-400 hover:border-slate-300 dark:hover:border-slate-500 focus:border-blue-500 dark:focus:border-blue-400"
             />
           </div>
 
@@ -213,8 +218,6 @@ function BaseAdminTable<T extends { _id: string }>({
                 }
                 allowClear
                 style={{ width: '100%' }}
-                className="bg-white dark:bg-slate-700 border-slate-200 dark:border-slate-600 text-slate-900 dark:text-slate-100 hover:border-slate-300 dark:hover:border-slate-500 focus:border-blue-500 dark:focus:border-blue-400"
-                dropdownClassName="dark:bg-slate-700 dark:border-slate-600 dark:text-slate-100 dark:shadow-lg"
               >
                 {filter.options.map(option => (
                   <Option key={option.value} value={option.value}>
@@ -235,7 +238,6 @@ function BaseAdminTable<T extends { _id: string }>({
                 setSearchText('');
                 setFilterValues({});
               }}
-              className="bg-white dark:bg-slate-700 border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-600"
             >
               Xóa bộ lọc
             </Button>
@@ -244,7 +246,7 @@ function BaseAdminTable<T extends { _id: string }>({
       </Card>
 
       {/* Table */}
-      <Card className="bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm">
+      <Card>
         <Table
           columns={allColumns}
           dataSource={filteredData}
@@ -252,8 +254,6 @@ function BaseAdminTable<T extends { _id: string }>({
           rowKey="_id"
           pagination={false}
           scroll={{ x: 'max-content' }}
-          className="dark:bg-slate-800"
-          rowClassName="hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors duration-200"
         />
       </Card>
 
@@ -270,7 +270,6 @@ function BaseAdminTable<T extends { _id: string }>({
             showTotal={(total, range) =>
               `${range[0]}-${range[1]} của ${total} mục`
             }
-            className="dark:text-slate-200"
           />
         </div>
       )}

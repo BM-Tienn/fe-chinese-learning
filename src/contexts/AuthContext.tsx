@@ -6,9 +6,15 @@ import React, {
   ReactNode,
 } from 'react';
 import authApi from '../services/authApi';
-import { setCookie, getCookie, removeCookie } from '../utils/cookies';
+import {
+  setCookie,
+  getCookie,
+  removeCookie,
+  clearAllCookies,
+} from '../utils/cookies';
 import { TYPE_COOKIE } from '../utils/constants';
 import usersApi from '../services/usersApi';
+import { store } from '../store/configureStore';
 
 interface User {
   _id: string;
@@ -112,17 +118,48 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const logout = async () => {
     try {
+      // Gọi API logout để thông báo cho server
       await authApi.logout();
     } catch (error) {
       console.error('Logout error:', error);
     } finally {
-      // Xóa token khỏi cookie
-      removeCookie(TYPE_COOKIE.TOKEN);
-      localStorage.removeItem('user');
+      // 🧹 COMPREHENSIVE LOGOUT - Xóa tất cả dữ liệu người dùng
 
-      // Cập nhật state
+      // 1. Xóa tất cả cookies
+      clearAllCookies();
+
+      // 2. Xóa token cụ thể
+      removeCookie(TYPE_COOKIE.TOKEN);
+
+      // 3. Xóa tất cả dữ liệu từ localStorage
+      localStorage.clear();
+
+      // 4. Xóa tất cả dữ liệu từ sessionStorage
+      sessionStorage.clear();
+
+      // 5. Reset Redux store state
+      store.dispatch({ type: 'RESET_STATE' });
+
+      // 6. Cập nhật state
       setUser(null);
       setIsAuthenticated(false);
+
+      // 7. Clear any other stored data - Xóa các key cụ thể nếu có
+      const keysToRemove = [
+        'user',
+        'authToken',
+        'refreshToken',
+        'userPreferences',
+        'theme',
+        'language',
+        'redirectUrl',
+        'lastVisitedPage',
+      ];
+
+      keysToRemove.forEach(key => {
+        localStorage.removeItem(key);
+        sessionStorage.removeItem(key);
+      });
     }
   };
 

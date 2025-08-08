@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Modal,
   Form,
@@ -19,7 +19,7 @@ import type {
 } from '../../../services';
 import dayjs from 'dayjs';
 
-const UserProgressAdmin: React.FC = () => {
+const UserProgressAdmin: React.FC = React.memo(() => {
   const [userProgress, setUserProgress] = useState<UserProgress[]>([]);
   const [loading, setLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -28,7 +28,7 @@ const UserProgressAdmin: React.FC = () => {
   );
   const [form] = Form.useForm();
 
-  const fetchUserProgress = async () => {
+  const fetchUserProgress = useCallback(async () => {
     try {
       setLoading(true);
       const response = await userProgressApi.getAllUserProgress();
@@ -38,11 +38,11 @@ const UserProgressAdmin: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchUserProgress();
-  }, []);
+  }, [fetchUserProgress]);
 
   const handleCreate = () => {
     setEditingProgress(null);
@@ -307,6 +307,6 @@ const UserProgressAdmin: React.FC = () => {
       </Modal>
     </div>
   );
-};
+});
 
 export default UserProgressAdmin;

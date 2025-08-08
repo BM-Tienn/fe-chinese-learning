@@ -25,7 +25,6 @@ import {
   SettingOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import authApi from 'services/authApi';
 
 interface SidebarProps {
   isDarkMode: boolean;
@@ -44,7 +43,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   const location = useLocation();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isAdminExpanded, setIsAdminExpanded] = useState(false);
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const isAdmin = user?.role === 'admin';
 
   const navItems = [
@@ -148,8 +147,11 @@ const Sidebar: React.FC<SidebarProps> = ({
   const handleLogout = async () => {
     setLoading(true);
     try {
-      await authApi.logout();
-      navigate('/login');
+      // Sử dụng logout từ AuthContext để clear tất cả dữ liệu
+      await logout();
+
+      // Redirect về trang login
+      navigate('/login', { replace: true });
     } catch (error) {
       console.error('Logout failed:', error);
     } finally {
@@ -157,7 +159,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     }
   };
 
-  const menuItems = [
+  const profileMenuItems = [
     {
       key: 'profile',
       icon: <UserOutlined />,
@@ -175,10 +177,14 @@ const Sidebar: React.FC<SidebarProps> = ({
     },
     {
       key: 'logout',
-      icon: <LogoutOutlined />,
-      label: 'Đăng xuất',
+      icon: loading ? (
+        <div className="animate-spin">⏳</div>
+      ) : (
+        <LogoutOutlined />
+      ),
+      label: loading ? 'Đang đăng xuất...' : 'Đăng xuất',
       onClick: handleLogout,
-      loading: loading,
+      disabled: loading,
     },
   ];
 
@@ -278,7 +284,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         </div>
 
         {/* Navigation */}
-        <nav className="mt-4 flex-grow px-2 overflow-y-auto">
+        <nav className="flex-grow px-3 overflow-y-auto mt-2">
           <Menu
             mode="inline"
             selectedKeys={[location.pathname]}
@@ -288,33 +294,47 @@ const Sidebar: React.FC<SidebarProps> = ({
         </nav>
 
         {/* Bottom section */}
-        <div className="p-3 border-t border-slate-200 dark:border-slate-800">
-          <Menu
-            mode="inline"
-            className="bg-transparent border-none"
-            items={[
-              {
-                key: 'theme',
-                icon: isDarkMode ? (
-                  <Sun className="w-4 h-4" />
-                ) : (
-                  <Moon className="w-4 h-4" />
-                ),
-                label: !isCollapsed ? 'Chế độ Sáng/Tối' : null,
-                onClick: toggleTheme,
-                className: isCollapsed ? 'text-center' : '',
-              },
-              {
-                key: 'profile',
-                icon: <UserOutlined className="w-4 h-4" />,
-                label: !isCollapsed ? user?.username : null,
-                className: isCollapsed ? 'text-center' : '',
-                onClick: () => {
-                  navigate('/profile');
-                },
-              },
-            ]}
-          />
+        <div className="px-3 pb-3 border-t border-slate-200 dark:border-slate-800">
+          <div className="space-y-2 pt-3">
+            {/* Theme Toggle */}
+            <div
+              className="flex items-center justify-center cursor-pointer p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              onClick={toggleTheme}
+            >
+              {isDarkMode ? (
+                <Sun className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+              ) : (
+                <Moon className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+              )}
+              {!isCollapsed && (
+                <span className="ml-2 text-sm font-medium text-slate-700 dark:text-slate-300 truncate">
+                  Chế độ Sáng/Tối
+                </span>
+              )}
+            </div>
+
+            {/* Profile Dropdown */}
+            <div>
+              <Dropdown
+                menu={{
+                  items: profileMenuItems,
+                  className: 'w-full',
+                }}
+                placement={isCollapsed ? 'bottomRight' : 'topRight'}
+                trigger={['click']}
+                overlayStyle={{ zIndex: 1000 }}
+              >
+                <div className="flex items-center justify-center cursor-pointer p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                  <UserOutlined className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+                  {!isCollapsed && (
+                    <span className="ml-2 text-sm font-medium text-slate-700 dark:text-slate-300 truncate">
+                      {user?.email || 'Hồ sơ cá nhân'}
+                    </span>
+                  )}
+                </div>
+              </Dropdown>
+            </div>
+          </div>
         </div>
       </aside>
 

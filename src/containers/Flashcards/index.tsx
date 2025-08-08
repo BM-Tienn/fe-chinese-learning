@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Card, Badge, Tag, Progress, Spin } from 'antd';
 import {
@@ -18,7 +18,7 @@ import { I_FlashcardSetSimple } from '../../types/shared/flashcard';
 import { I_Configuration } from '../../types/shared/configuration';
 import { notifications } from '../../utils/notifications';
 
-const Flashcards: React.FC = () => {
+const Flashcards: React.FC = React.memo(() => {
   const navigate = useNavigate();
   const [selectedTopic, setSelectedTopic] = useState('all');
   const [selectedType, setSelectedType] = useState('all');
@@ -33,75 +33,73 @@ const Flashcards: React.FC = () => {
   const [wordTypes, setWordTypes] = useState<I_Configuration[]>([]);
 
   // Fetch flashcard sets and configurations
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
+  const fetchData = useCallback(async () => {
+    try {
+      setLoading(true);
 
-        // Fetch flashcard sets and configurations in parallel
-        const [setsResponse, configResponse] = await Promise.all([
-          flashcardsApi.getUserFlashcardSets(),
-          configurationsApi.getConfigurationsByType('topic'),
-        ]);
+      // Fetch flashcard sets and configurations in parallel
+      const [setsResponse, configResponse] = await Promise.all([
+        flashcardsApi.getUserFlashcardSets(),
+        configurationsApi.getConfigurationsByType('topic'),
+      ]);
 
-        // Transform API data to match our interface
-        const transformedSets: I_FlashcardSetSimple[] = setsResponse.map(
-          set => ({
-            _id: set._id,
-            title: set.title,
-            description: set.description,
-            category: set.category,
-            level: set.level,
-            totalCards: set.cardCount || 0,
-            masteredCards: 0, // Mock data - should come from API
-            learningCards: 0, // Mock data - should come from API
-            notStartedCards: set.cardCount || 0, // Mock data - should come from API
-            createdAt: set.createdAt,
-            updatedAt: set.updatedAt,
-            // Additional properties for display
-            isNew:
-              new Date(set.createdAt).getTime() >
-              Date.now() - 7 * 24 * 60 * 60 * 1000, // New if created within 7 days
-            isRecommended: set.isRecommended || false,
-            difficulty:
-              (set.cardCount || 0) <= 10
-                ? 'Dễ'
-                : (set.cardCount || 0) <= 20
-                  ? 'Trung bình'
-                  : 'Khó',
-            timeEstimate:
-              set.timeEstimate || `${Math.ceil((set.cardCount || 0) / 5)} phút`,
-            lastStudied: '2 giờ trước', // Mock data
-            mastery: 0, // Mock data - should come from API
-            color: set.color || 'red',
-          }),
-        );
+      // Transform API data to match our interface
+      const transformedSets: I_FlashcardSetSimple[] = setsResponse.map(set => ({
+        _id: set._id,
+        title: set.title,
+        description: set.description,
+        category: set.category,
+        level: set.level,
+        totalCards: set.cardCount || 0,
+        masteredCards: 0, // Mock data - should come from API
+        learningCards: 0, // Mock data - should come from API
+        notStartedCards: set.cardCount || 0, // Mock data - should come from API
+        createdAt: set.createdAt,
+        updatedAt: set.updatedAt,
+        // Additional properties for display
+        isNew:
+          new Date(set.createdAt).getTime() >
+          Date.now() - 7 * 24 * 60 * 60 * 1000, // New if created within 7 days
+        isRecommended: set.isRecommended || false,
+        difficulty:
+          (set.cardCount || 0) <= 10
+            ? 'Dễ'
+            : (set.cardCount || 0) <= 20
+              ? 'Trung bình'
+              : 'Khó',
+        timeEstimate:
+          set.timeEstimate || `${Math.ceil((set.cardCount || 0) / 5)} phút`,
+        lastStudied: '2 giờ trước', // Mock data
+        mastery: 0, // Mock data - should come from API
+        color: set.color || 'red',
+      }));
 
-        // Transform configuration data to match our interfaces
-        const topicsData: I_Configuration[] = configResponse.filter(
-          config => config.type === 'topic',
-        );
+      // Transform configuration data to match our interfaces
+      const topicsData: I_Configuration[] = configResponse.filter(
+        config => config.type === 'topic',
+      );
 
-        const wordTypesData: I_Configuration[] = configResponse.filter(
-          config => config.type === 'wordType',
-        );
+      const wordTypesData: I_Configuration[] = configResponse.filter(
+        config => config.type === 'wordType',
+      );
 
-        setFlashcardSets(transformedSets);
-        setTopics(topicsData);
-        setWordTypes(wordTypesData);
+      setFlashcardSets(transformedSets);
+      setTopics(topicsData);
+      setWordTypes(wordTypesData);
 
-        setError(null);
-      } catch (err: any) {
-        setError(err.message || 'Không thể tải dữ liệu');
-        notifications.general.error('Không thể tải dữ liệu');
-        console.error('Data fetch error:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
+      setError(null);
+    } catch (err: any) {
+      setError(err.message || 'Không thể tải dữ liệu');
+      notifications.general.error('Không thể tải dữ liệu');
+      console.error('Data fetch error:', err);
+    } finally {
+      setLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   const getColorClasses = (color: string) => {
     const colors = {
@@ -609,6 +607,6 @@ const Flashcards: React.FC = () => {
       </main>
     </div>
   );
-};
+});
 
 export default Flashcards;

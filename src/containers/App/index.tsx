@@ -39,6 +39,26 @@ const AppContent: React.FC = () => {
     localStorage.setItem('theme', newTheme ? 'dark' : 'light');
   };
 
+  // Apply dark mode to body element
+  useEffect(() => {
+    if (isDarkMode) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+  }, [isDarkMode]);
+
+  // Initialize dark mode on mount
+  useEffect(() => {
+    const saved = localStorage.getItem('theme');
+    const isDark = saved ? saved === 'dark' : false;
+    if (isDark) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+  }, []);
+
   // Get notifications from Redux state
   const notifications = useSelector((state: any) => state.notifications);
 

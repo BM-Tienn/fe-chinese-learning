@@ -55,7 +55,13 @@ const Login: React.FC = () => {
 
         {/* Login Form */}
         <Card className="shadow-xl border-0">
-          <Form name="login" onFinish={onFinish} layout="vertical" size="large">
+          <Form
+            name="login"
+            onFinish={onFinish}
+            layout="vertical"
+            size="large"
+            className="login-form"
+          >
             <Form.Item
               name="email"
               label="Email"

@@ -33,7 +33,7 @@ const ProtectedLayout: React.FC<ProtectedLayoutProps> = ({
             </h1>
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700"
+              className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 bg-slate-100 dark:bg-slate-700"
             >
               <svg
                 className="w-5 h-5"
@@ -54,7 +54,9 @@ const ProtectedLayout: React.FC<ProtectedLayoutProps> = ({
 
         {/* Content Area */}
         <main className="flex-1 overflow-x-hidden overflow-y-auto">
-          <Outlet />
+          <div className="mx-auto">
+            <Outlet />
+          </div>
         </main>
       </div>
     </div>

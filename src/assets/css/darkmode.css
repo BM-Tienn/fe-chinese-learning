@@ -1,0 +1,907 @@
+/* ======================================== */
+/* DARK MODE STYLES */
+/* ======================================== */
+
+/* Dark Mode - Using body.dark for consistency */
+body.dark .ant-card {
+  background-color: #1e293b;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+
+/* ======================================== */
+/* DARK MODE NOTIFICATION STYLES */
+/* ======================================== */
+
+/* Reapop Notification System - Dark Mode */
+body.dark .reapop-notification {
+  background-color: #1e293b !important;
+  border: 1px solid #334155 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2) !important;
+  color: #e2e8f0 !important;
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+  margin-bottom: 8px !important;
+  max-width: 400px !important;
+  padding: 16px !important;
+  position: relative !important;
+  transition: all 0.2s ease !important;
+}
+
+body.dark .reapop-notification:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3) !important;
+  transform: translateY(-1px) !important;
+  border-color: #475569 !important;
+}
+
+/* Notification header - Dark Mode */
+body.dark .reapop-notification__header {
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  margin-bottom: 8px !important;
+}
+
+body.dark .reapop-notification__title {
+  color: #f8fafc !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+  margin: 0 !important;
+  padding-right: 24px !important;
+}
+
+body.dark .reapop-notification__message {
+  color: #cbd5e1 !important;
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+  margin: 0 !important;
+}
+
+/* Notification close button - Dark Mode */
+body.dark .reapop-notification__close-button {
+  background: transparent !important;
+  border: none !important;
+  color: #64748b !important;
+  cursor: pointer !important;
+  font-size: 16px !important;
+  line-height: 1 !important;
+  padding: 4px !important;
+  position: absolute !important;
+  right: 12px !important;
+  top: 12px !important;
+  transition: all 0.2s ease !important;
+}
+
+body.dark .reapop-notification__close-button:hover {
+  color: #94a3b8 !important;
+  background-color: #334155 !important;
+  border-radius: 4px !important;
+}
+
+/* Notification status indicators - Dark Mode */
+body.dark .reapop-notification--success {
+  border-left: 4px solid #22c55e !important;
+}
+
+body.dark .reapop-notification--success .reapop-notification__title {
+  color: #4ade80 !important;
+}
+
+body.dark .reapop-notification--error {
+  border-left: 4px solid #ef4444 !important;
+}
+
+body.dark .reapop-notification--error .reapop-notification__title {
+  color: #f87171 !important;
+}
+
+body.dark .reapop-notification--warning {
+  border-left: 4px solid #f59e0b !important;
+}
+
+body.dark .reapop-notification--warning .reapop-notification__title {
+  color: #fbbf24 !important;
+}
+
+body.dark .reapop-notification--info {
+  border-left: 4px solid #6366f1 !important;
+}
+
+body.dark .reapop-notification--info .reapop-notification__title {
+  color: #818cf8 !important;
+}
+
+/* Notification icon - Dark Mode */
+body.dark .reapop-notification__icon {
+  margin-right: 12px !important;
+  flex-shrink: 0 !important;
+}
+
+body.dark .reapop-notification--success .reapop-notification__icon {
+  color: #22c55e !important;
+}
+
+body.dark .reapop-notification--error .reapop-notification__icon {
+  color: #ef4444 !important;
+}
+
+body.dark .reapop-notification--warning .reapop-notification__icon {
+  color: #f59e0b !important;
+}
+
+body.dark .reapop-notification--info .reapop-notification__icon {
+  color: #6366f1 !important;
+}
+
+/* Notification container - Dark Mode */
+body.dark .reapop-notifications-container {
+  z-index: 9999 !important;
+}
+
+/* Notification animation - Dark Mode */
+body.dark .reapop-notification-enter {
+  opacity: 0 !important;
+  transform: translateX(100%) !important;
+}
+
+body.dark .reapop-notification-enter-active {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+  transition: all 0.3s ease-out !important;
+}
+
+body.dark .reapop-notification-exit {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+}
+
+body.dark .reapop-notification-exit-active {
+  opacity: 0 !important;
+  transform: translateX(100%) !important;
+  transition: all 0.3s ease-in !important;
+}
+
+body.dark .ant-btn {
+  background-color: #334155;
+  border-color: #475569;
+  color: #e2e8f0;
+}
+
+body.dark .ant-btn:hover {
+  background-color: #475569;
+  border-color: #64748b;
+}
+
+body.dark .ant-btn-primary {
+  background-color: #6366f1;
+  border-color: #6366f1;
+}
+
+body.dark .ant-btn-primary:hover {
+  background-color: #5855eb;
+  border-color: #5855eb;
+}
+
+body.dark .ant-input {
+  background-color: #334155 !important;
+  border-color: #475569 !important;
+  color: #f8fafc !important;
+}
+
+body.dark .ant-input:hover {
+  border-color: #6366f1 !important;
+  background-color: #334155 !important;
+}
+
+body.dark .ant-input::placeholder {
+  color: #94a3b8 !important;
+}
+
+body.dark .ant-input:focus,
+body.dark .ant-input-focused {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2) !important;
+  background-color: #334155 !important;
+}
+
+/* Outlined Input Dark Mode */
+body.dark .ant-input-outlined {
+  background-color: #334155 !important;
+  border-color: #475569 !important;
+  color: #f8fafc !important;
+}
+
+body.dark .ant-input-outlined:hover {
+  border-color: #6366f1 !important;
+  background-color: #334155 !important;
+}
+
+body.dark .ant-input-outlined:focus,
+body.dark .ant-input-outlined.ant-input-focused {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2) !important;
+  background-color: #334155 !important;
+}
+
+body.dark .ant-input-outlined::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* Generic Input Dark Mode */
+body.dark input[type="text"],
+body.dark input[type="email"],
+body.dark input[type="password"],
+body.dark input[type="number"],
+body.dark input[type="search"],
+body.dark input[type="tel"],
+body.dark input[type="url"],
+body.dark textarea {
+  background-color: #334155 !important;
+  border-color: #475569 !important;
+  color: #f8fafc !important;
+}
+
+body.dark input[type="text"]:hover,
+body.dark input[type="email"]:hover,
+body.dark input[type="password"]:hover,
+body.dark input[type="number"]:hover,
+body.dark input[type="search"]:hover,
+body.dark input[type="tel"]:hover,
+body.dark input[type="url"]:hover,
+body.dark textarea:hover {
+  border-color: #6366f1 !important;
+  background-color: #334155 !important;
+}
+
+body.dark input[type="text"]:focus,
+body.dark input[type="email"]:focus,
+body.dark input[type="password"]:focus,
+body.dark input[type="number"]:focus,
+body.dark input[type="search"]:focus,
+body.dark input[type="tel"]:focus,
+body.dark input[type="url"]:focus,
+body.dark textarea:focus {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2) !important;
+  background-color: #334155 !important;
+}
+
+body.dark input[type="text"]::placeholder,
+body.dark input[type="email"]::placeholder,
+body.dark input[type="password"]::placeholder,
+body.dark input[type="number"]::placeholder,
+body.dark input[type="search"]::placeholder,
+body.dark input[type="tel"]::placeholder,
+body.dark input[type="url"]::placeholder,
+body.dark textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+body.dark .ant-progress-bg {
+  background-color: #6366f1;
+}
+
+body.dark .ant-progress-text {
+  color: #e2e8f0;
+}
+
+body.dark .ant-progress-inner {
+  background-color: #475569;
+}
+
+/* Admin Table Dark Mode Styles */
+body.dark .ant-table {
+  background-color: #1e293b;
+  color: #e2e8f0;
+}
+
+body.dark .ant-table-thead > tr > th {
+  background-color: #334155;
+  color: #e2e8f0;
+  border-bottom: 1px solid #475569;
+  font-weight: 600;
+}
+
+body.dark .ant-table-thead > tr > th:hover {
+  background-color: #475569;
+  color: #f1f5f9;
+}
+
+body.dark .ant-table-tbody > tr > td {
+  background-color: #1e293b;
+  color: #e2e8f0;
+  border-bottom: 1px solid #334155;
+  transition: all 0.2s ease;
+}
+
+body.dark .ant-table-tbody > tr:hover > td {
+  background-color: #475569 !important;
+  color: #f1f5f9 !important;
+}
+
+body.dark .ant-table-tbody > tr.ant-table-row-selected > td {
+  background-color: rgba(99, 102, 241, 0.15) !important;
+  color: #f1f5f9 !important;
+}
+
+body.dark .ant-table-tbody > tr.ant-table-row-selected:hover > td {
+  background-color: rgba(99, 102, 241, 0.25) !important;
+}
+
+body.dark .ant-table-placeholder {
+  background-color: #1e293b;
+}
+
+body.dark .ant-table-placeholder .ant-table-cell {
+  background-color: #1e293b;
+  color: #94a3b8;
+}
+
+/* Additional table improvements for dark mode */
+body.dark .ant-table-container {
+  border: 1px solid #334155;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+body.dark .ant-table-thead > tr:first-child > th:first-child {
+  border-top-left-radius: 8px;
+}
+
+body.dark .ant-table-thead > tr:first-child > th:last-child {
+  border-top-right-radius: 8px;
+}
+
+body.dark .ant-table-tbody > tr:last-child > td:first-child {
+  border-bottom-left-radius: 8px;
+}
+
+body.dark .ant-table-tbody > tr:last-child > td:last-child {
+  border-bottom-right-radius: 8px;
+}
+
+/* Modal Dark Mode Styles */
+body.dark .ant-modal {
+  color: #f8fafc;
+}
+
+body.dark .ant-modal-content {
+  background-color: #1e293b !important;
+  border: 1px solid #475569 !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+body.dark .ant-modal-header {
+  background-color: #1e293b !important;
+  border-bottom: none !important;
+}
+
+body.dark .ant-modal-title {
+  color: #f8fafc !important;
+}
+
+body.dark .ant-modal-body {
+  background-color: #1e293b !important;
+  color: #f8fafc !important;
+}
+
+body.dark .ant-modal-footer {
+  background-color: #1e293b !important;
+  border-top: none !important;
+}
+
+body.dark .ant-modal-close {
+  color: #cbd5e1 !important;
+}
+
+body.dark .ant-modal-close:hover {
+  color: #f8fafc !important;
+}
+
+/* Form Dark Mode Styles */
+body.dark .ant-form-item-label > label {
+  color: #f8fafc !important;
+}
+
+body.dark .ant-form-item-explain-error {
+  color: #ef4444 !important;
+}
+
+body.dark .ant-form-item-explain-success {
+  color: #22c55e !important;
+}
+
+body.dark .ant-form-item-explain-warning {
+  color: #f59e0b !important;
+}
+
+/* Select Dark Mode Styles */
+body.dark .ant-select {
+  background-color: #334155 !important;
+  border-color: #475569 !important;
+  color: #f8fafc !important;
+  transition: all 0.2s ease;
+}
+
+body.dark .ant-select:hover {
+  border-color: #6366f1 !important;
+  background-color: #334155 !important;
+}
+
+body.dark .ant-select:focus,
+body.dark .ant-select-focused {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2) !important;
+  background-color: #334155 !important;
+}
+
+body.dark .ant-select-selector {
+  background-color: #334155 !important;
+  border-color: #475569 !important;
+  color: #f8fafc !important;
+}
+
+body.dark .ant-select-selector:hover {
+  border-color: #6366f1 !important;
+  background-color: #334155 !important;
+}
+
+body.dark .ant-select-focused .ant-select-selector {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2) !important;
+  background-color: #334155 !important;
+}
+
+body.dark .ant-select-selection-placeholder {
+  color: #94a3b8 !important;
+}
+
+body.dark .ant-select-arrow {
+  color: #94a3b8 !important;
+}
+
+body.dark .ant-select-clear {
+  color: #94a3b8 !important;
+  background-color: #334155 !important;
+}
+
+body.dark .ant-select-clear:hover {
+  color: #f8fafc !important;
+  background-color: #334155 !important;
+}
+
+/* Select Dropdown Dark Mode */
+body.dark .ant-select-dropdown {
+  background-color: #334155 !important;
+  border: 1px solid #475569 !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
+}
+
+body.dark .ant-select-item {
+  color: #f8fafc !important;
+  transition: all 0.2s ease;
+}
+
+body.dark .ant-select-item:hover {
+  background-color: #475569 !important;
+  color: #f8fafc !important;
+}
+
+body.dark .ant-select-item-option-active {
+  background-color: #475569 !important;
+  color: #f8fafc !important;
+}
+
+body.dark .ant-select-item-option-selected {
+  background-color: #6366f1 !important;
+  color: #ffffff !important;
+  font-weight: 600;
+}
+
+body.dark .ant-select-item-option-selected:hover {
+  background-color: #6366f1 !important;
+  color: #ffffff !important;
+}
+
+body.dark .ant-input-password {
+  background-color: #334155;
+  border-color: #475569;
+  color: #e2e8f0;
+}
+
+body.dark .ant-input-password .ant-input {
+  background-color: transparent;
+  border: none;
+  color: #e2e8f0;
+}
+
+/* Pagination Dark Mode */
+body.dark .ant-pagination {
+  color: #e2e8f0;
+}
+
+body.dark .ant-pagination-item {
+  background-color: #334155;
+  border-color: #475569;
+  color: #e2e8f0;
+}
+
+body.dark .ant-pagination-item:hover {
+  border-color: #6366f1;
+  color: #6366f1;
+}
+
+body.dark .ant-pagination-item-active {
+  background-color: #6366f1;
+  border-color: #6366f1;
+  color: #ffffff;
+}
+
+body.dark .ant-pagination-item-active a {
+  color: #ffffff !important;
+  font-weight: 600;
+}
+
+body.dark .ant-pagination-item-active:hover {
+  background-color: #5855eb;
+  border-color: #5855eb;
+}
+
+body.dark .ant-pagination-item-active:hover a {
+  color: #ffffff !important;
+}
+
+body.dark .ant-pagination-prev,
+body.dark .ant-pagination-next {
+  background-color: #334155;
+  border-color: #475569;
+  color: #e2e8f0;
+}
+
+body.dark .ant-pagination-prev:hover,
+body.dark .ant-pagination-next:hover {
+  border-color: #6366f1;
+  color: #6366f1;
+}
+
+/* Dark Mode for pagination ellipsis */
+body.dark .ant-pagination-item-ellipsis {
+  color: #cbd5e1 !important;
+}
+
+/* Popconfirm Dark Mode */
+body.dark .ant-popover {
+  background-color: #334155;
+  border: 1px solid #475569;
+}
+
+body.dark .ant-popover-title {
+  color: #e2e8f0;
+}
+
+body.dark .ant-popover-inner-content {
+  color: #e2e8f0;
+}
+
+/* Tooltip Dark Mode */
+body.dark .ant-tooltip {
+  background-color: #334155;
+}
+
+body.dark .ant-tooltip-inner {
+  background-color: #334155;
+  color: #e2e8f0;
+}
+
+/* Sidebar Menu - Chỉ override cho sidebar */
+body.dark .ant-menu {
+  background-color: #020617;
+  color: #e2e8f0;
+}
+
+body.dark .ant-menu-item {
+  color: #94a3b8;
+  background-color: transparent;
+  border-radius: 6px;
+  margin: 2px 8px;
+}
+
+body.dark .ant-menu-item:hover {
+  color: #e2e8f0;
+  background-color: #1e293b;
+}
+
+body.dark .ant-menu-item-selected {
+  color: #6366f1;
+  background-color: rgba(99, 102, 241, 0.1);
+}
+
+body.dark .ant-menu-item-selected::after {
+  border-right-color: #6366f1;
+}
+
+body.dark .ant-menu-inline {
+  border-right: none;
+}
+
+body.dark .ant-menu-item .anticon {
+  color: inherit;
+}
+
+/* Dark Mode for Headings */
+body.dark h1,
+body.dark h2,
+body.dark h3,
+body.dark h4,
+body.dark h5,
+body.dark h6 {
+  color: #f8fafc !important;
+}
+
+/* Dark Mode Header Button */
+body.dark header button {
+  background-color: transparent;
+  border: none;
+  color: #94a3b8;
+  transition: all 0.2s ease;
+}
+
+body.dark header button:hover {
+  background-color: #475569 !important;
+  color: #e2e8f0;
+}
+
+/* ======================================== */
+/* DARK MODE AUTOFILL STYLES */
+/* ======================================== */
+
+/* Dark Mode Autofill Styles */
+body.dark input:-webkit-autofill,
+body.dark input:-webkit-autofill:hover,
+body.dark input:-webkit-autofill:focus,
+body.dark input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #334155 inset !important;
+  -webkit-text-fill-color: #f8fafc !important;
+  transition: background-color 5000s ease-in-out 0s;
+  background-color: #334155 !important;
+  border-color: #6366f1 !important;
+}
+
+/* Dark Mode Autofill for password fields */
+body.dark input[type="password"]:-webkit-autofill,
+body.dark input[type="password"]:-webkit-autofill:hover,
+body.dark input[type="password"]:-webkit-autofill:focus,
+body.dark input[type="password"]:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #334155 inset !important;
+  -webkit-text-fill-color: #f8fafc !important;
+  transition: background-color 5000s ease-in-out 0s;
+  background-color: #334155 !important;
+  border-color: #6366f1 !important;
+}
+
+/* Dark Mode Autofill for email fields */
+body.dark input[type="email"]:-webkit-autofill,
+body.dark input[type="email"]:-webkit-autofill:hover,
+body.dark input[type="email"]:-webkit-autofill:focus,
+body.dark input[type="email"]:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #334155 inset !important;
+  -webkit-text-fill-color: #f8fafc !important;
+  transition: background-color 5000s ease-in-out 0s;
+  background-color: #334155 !important;
+  border-color: #6366f1 !important;
+}
+
+/* Dark Mode Ant Design Input Autofill */
+body.dark .ant-input:-webkit-autofill,
+body.dark .ant-input:-webkit-autofill:hover,
+body.dark .ant-input:-webkit-autofill:focus,
+body.dark .ant-input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #334155 inset !important;
+  -webkit-text-fill-color: #f8fafc !important;
+  transition: background-color 5000s ease-in-out 0s;
+  background-color: #334155 !important;
+  border-color: #6366f1 !important;
+}
+
+/* Dark Mode Ant Design Password Input Autofill */
+body.dark .ant-input-password:-webkit-autofill,
+body.dark .ant-input-password:-webkit-autofill:hover,
+body.dark .ant-input-password:-webkit-autofill:focus,
+body.dark .ant-input-password:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #334155 inset !important;
+  -webkit-text-fill-color: #f8fafc !important;
+  transition: background-color 5000s ease-in-out 0s;
+  background-color: #334155 !important;
+  border-color: #6366f1 !important;
+}
+
+body.dark .ant-input-password .ant-input:-webkit-autofill,
+body.dark .ant-input-password .ant-input:-webkit-autofill:hover,
+body.dark .ant-input-password .ant-input:-webkit-autofill:focus,
+body.dark .ant-input-password .ant-input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #334155 inset !important;
+  -webkit-text-fill-color: #f8fafc !important;
+  transition: background-color 5000s ease-in-out 0s;
+  background-color: #334155 !important;
+  border-color: #6366f1 !important;
+}
+
+body.dark input:-moz-autofill,
+body.dark input:-moz-autofill:focus {
+  background-color: #334155 !important;
+  color: #f8fafc !important;
+  border-color: #6366f1 !important;
+}
+
+body.dark input:-ms-input-placeholder {
+  color: #94a3b8 !important;
+}
+
+body.dark input:autofill {
+  background-color: #334155 !important;
+  color: #f8fafc !important;
+  border-color: #6366f1 !important;
+}
+
+body.dark .login-form input:-webkit-autofill,
+body.dark .register-form input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px #334155 inset !important;
+  -webkit-text-fill-color: #f8fafc !important;
+}
+
+/* ======================================== */
+/* DARK MODE AUTOFILL SUGGESTION POPUP STYLES */
+/* ======================================== */
+
+/* Dark Mode - Autofill suggestion popup */
+body.dark input:-webkit-autofill + .ant-input-suffix,
+body.dark .ant-input:-webkit-autofill + .ant-input-suffix {
+  background-color: #334155 !important;
+  color: #f8fafc !important;
+}
+
+body.dark input::-webkit-credentials-auto-fill-button {
+  background-color: #334155 !important;
+  border: 1px solid #475569 !important;
+  border-radius: 4px !important;
+}
+
+body.dark input:-moz-autofill + .ant-input-suffix {
+  background-color: #334155 !important;
+  color: #f8fafc !important;
+}
+
+body.dark input:-ms-input-placeholder + .ant-input-suffix {
+  background-color: #334155 !important;
+  color: #f8fafc !important;
+}
+
+body.dark *::-webkit-credentials-auto-fill-button {
+  background-color: #334155 !important;
+  border: 1px solid #475569 !important;
+  border-radius: 4px !important;
+  color: #f8fafc !important;
+}
+
+body.dark div[data-testid="autofill-suggestion"] {
+  background-color: #334155 !important;
+  border: 1px solid #475569 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2) !important;
+  color: #f8fafc !important;
+}
+
+body.dark div[data-testid="autofill-suggestion"] > div {
+  background-color: #334155 !important;
+  color: #f8fafc !important;
+  border-bottom: 1px solid #475569 !important;
+}
+
+body.dark div[data-testid="autofill-suggestion"] > div:hover {
+  background-color: #475569 !important;
+  color: #f8fafc !important;
+}
+
+body.dark div[data-testid="autofill-suggestion"] svg,
+body.dark div[data-testid="autofill-dropdown"] svg,
+body.dark div[data-testid="autofill-popup"] svg,
+body.dark div[class*="autofill-suggestion"] svg,
+body.dark div[class*="autofill-dropdown"] svg,
+body.dark div[class*="autofill-popup"] svg,
+body.dark div[class*="suggestion-list"] svg,
+body.dark div[class*="dropdown-list"] svg,
+body.dark div[class*="popup-list"] svg,
+body.dark div[role="option"][class*="autofill"] svg,
+body.dark div[role="option"][class*="suggestion"] svg,
+body.dark div[role="option"][class*="dropdown"] svg,
+body.dark div[data-testid="autofill-suggestion"] img,
+body.dark div[data-testid="autofill-dropdown"] img,
+body.dark div[data-testid="autofill-popup"] img,
+body.dark div[class*="autofill-suggestion"] img,
+body.dark div[class*="autofill-dropdown"] img,
+body.dark div[class*="autofill-popup"] img,
+body.dark div[class*="suggestion-list"] img,
+body.dark div[class*="dropdown-list"] img,
+body.dark div[class*="popup-list"] img,
+body.dark div[role="option"][class*="autofill"] img,
+body.dark div[role="option"][class*="suggestion"] img,
+body.dark div[role="option"][class*="dropdown"] img {
+  filter: brightness(0) saturate(100%) invert(90%) sepia(10%) saturate(1000%) hue-rotate(200deg) brightness(90%) contrast(90%) !important;
+}
+
+/* ======================================== */
+/* CHROME AUTOFILL POPUP - DARK MODE STYLING */
+/* ======================================== */
+
+body.dark div[data-testid="autofill-suggestion"],
+body.dark div[data-testid="autofill-dropdown"],
+body.dark div[data-testid="autofill-popup"],
+body.dark div[class*="autofill-suggestion"],
+body.dark div[class*="autofill-dropdown"],
+body.dark div[class*="autofill-popup"],
+body.dark div[class*="suggestion-list"],
+body.dark div[class*="dropdown-list"],
+body.dark div[class*="popup-list"],
+body.dark div[role="listbox"][class*="autofill"],
+body.dark div[role="listbox"][class*="suggestion"],
+body.dark div[role="listbox"][class*="dropdown"] {
+  background-color: #334155 !important;
+  border: 1px solid #475569 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2) !important;
+  color: #f8fafc !important;
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+}
+
+body.dark div[data-testid="autofill-suggestion"] > div,
+body.dark div[data-testid="autofill-dropdown"] > div,
+body.dark div[data-testid="autofill-popup"] > div,
+body.dark div[class*="autofill-suggestion"] > div,
+body.dark div[class*="autofill-dropdown"] > div,
+body.dark div[class*="autofill-popup"] > div,
+body.dark div[class*="suggestion-list"] > div,
+body.dark div[class*="dropdown-list"] > div,
+body.dark div[class*="popup-list"] > div,
+body.dark div[role="option"][class*="autofill"],
+body.dark div[role="option"][class*="suggestion"],
+body.dark div[role="option"][class*="dropdown"] {
+  background-color: #334155 !important;
+  color: #f8fafc !important;
+  border-bottom: 1px solid #475569 !important;
+  padding: 8px 12px !important;
+  transition: all 0.2s ease !important;
+}
+
+body.dark div[data-testid="autofill-suggestion"] > div:hover,
+body.dark div[data-testid="autofill-dropdown"] > div:hover,
+body.dark div[data-testid="autofill-popup"] > div:hover,
+body.dark div[class*="autofill-suggestion"] > div:hover,
+body.dark div[class*="autofill-dropdown"] > div:hover,
+body.dark div[class*="autofill-popup"] > div:hover,
+body.dark div[class*="suggestion-list"] > div:hover,
+body.dark div[class*="dropdown-list"] > div:hover,
+body.dark div[class*="popup-list"] > div:hover,
+body.dark div[role="option"][class*="autofill"]:hover,
+body.dark div[role="option"][class*="suggestion"]:hover,
+body.dark div[role="option"][class*="dropdown"]:hover {
+  background-color: #475569 !important;
+  color: #f8fafc !important;
+}
+
+body.dark div[data-testid="autofill-suggestion"] span,
+body.dark div[data-testid="autofill-dropdown"] span,
+body.dark div[data-testid="autofill-popup"] span,
+body.dark div[class*="autofill-suggestion"] span,
+body.dark div[class*="autofill-dropdown"] span,
+body.dark div[class*="autofill-popup"] span,
+body.dark div[class*="suggestion-list"] span,
+body.dark div[class*="dropdown-list"] span,
+body.dark div[class*="popup-list"] span,
+body.dark div[role="option"][class*="autofill"] span,
+body.dark div[role="option"][class*="suggestion"] span,
+body.dark div[role="option"][class*="dropdown"] span {
+  color: #f8fafc !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}

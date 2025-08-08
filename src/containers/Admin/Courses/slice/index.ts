@@ -23,17 +23,17 @@ const adminCoursesSlice = createSlice({
       state.list = crr;
     },
     updateCourse: (state, actions) => {
-      const updatedBidRequest = actions.payload;
-      const crr = state.list.map(id =>
-        id === updatedBidRequest.id ? updatedBidRequest : id,
+      const updatedCourse = actions.payload;
+      const crr = state.list.map(course =>
+        course._id === updatedCourse._id ? updatedCourse : course,
       );
 
       state.list = crr;
     },
     deleteCourse: (state, actions) => {
-      const idToDelete = actions.payload?.id;
+      const idToDelete = actions.payload?._id;
 
-      const crr = state.list.filter(id => idToDelete !== id);
+      const crr = state.list.filter(course => course._id !== idToDelete);
 
       state.list = crr;
     },

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate, Routes, Route } from 'react-router-dom';
-import { Card, Typography } from 'antd';
+import { Card } from 'antd';
 import {
   BookOpen,
   Users,
@@ -12,7 +12,6 @@ import {
   Calendar,
   BookMarked,
   GraduationCap,
-  ArrowLeft,
 } from 'lucide-react';
 
 // Import admin sub-components
@@ -26,8 +25,7 @@ import ConfigurationsAdmin from './Configurations';
 import StudySessionsAdmin from './StudySessions';
 import UserProgressAdmin from './UserProgress';
 import UserGoalsAdmin from './UserGoals';
-
-const { Title } = Typography;
+import { MainLayout, PageContainer } from '../../components';
 
 const AdminDashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -122,36 +120,17 @@ const AdminDashboard: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-full">
-      {/* Header */}
-      <header className="flex items-center justify-between p-4 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 shadow-sm flex-shrink-0">
-        <div className="flex items-center">
-          <button
-            onClick={() => navigate('/dashboard')}
-            className="mr-3 p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5" />
-          </button>
-          <div>
-            <Title
-              level={2}
-              className="!mb-0 text-slate-800 dark:text-slate-200"
-            >
-              Quản trị hệ thống
-            </Title>
-            <p className="text-sm text-slate-500 dark:text-slate-400">
-              Quản lý toàn bộ dữ liệu và cấu hình hệ thống
-            </p>
-          </div>
-        </div>
-      </header>
-
-      {/* Main content */}
-      <main className="flex-1 overflow-x-hidden overflow-y-auto bg-slate-50 dark:bg-slate-900 p-6">
-        <Routes>
-          <Route
-            path="/"
-            element={
+    <MainLayout
+      title="Quản trị hệ thống"
+      subtitle="Quản lý toàn bộ dữ liệu và cấu hình hệ thống"
+      showBackButton={true}
+      onBackClick={() => navigate('/dashboard')}
+    >
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <PageContainer>
               <div className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                   {adminModules.map((module, index) => {
@@ -183,21 +162,21 @@ const AdminDashboard: React.FC = () => {
                   })}
                 </div>
               </div>
-            }
-          />
-          <Route path="/users" element={<UsersAdmin />} />
-          <Route path="/courses" element={<CoursesAdmin />} />
-          <Route path="/lessons" element={<LessonsAdmin />} />
-          <Route path="/flashcards" element={<FlashcardsAdmin />} />
-          <Route path="/vocabularies" element={<VocabulariesAdmin />} />
-          <Route path="/words" element={<WordsAdmin />} />
-          <Route path="/configurations" element={<ConfigurationsAdmin />} />
-          <Route path="/study-sessions" element={<StudySessionsAdmin />} />
-          <Route path="/user-progress" element={<UserProgressAdmin />} />
-          <Route path="/user-goals" element={<UserGoalsAdmin />} />
-        </Routes>
-      </main>
-    </div>
+            </PageContainer>
+          }
+        />
+        <Route path="/users" element={<UsersAdmin />} />
+        <Route path="/courses" element={<CoursesAdmin />} />
+        <Route path="/lessons" element={<LessonsAdmin />} />
+        <Route path="/flashcards" element={<FlashcardsAdmin />} />
+        <Route path="/vocabularies" element={<VocabulariesAdmin />} />
+        <Route path="/words" element={<WordsAdmin />} />
+        <Route path="/configurations" element={<ConfigurationsAdmin />} />
+        <Route path="/study-sessions" element={<StudySessionsAdmin />} />
+        <Route path="/user-progress" element={<UserProgressAdmin />} />
+        <Route path="/user-goals" element={<UserGoalsAdmin />} />
+      </Routes>
+    </MainLayout>
   );
 };
 

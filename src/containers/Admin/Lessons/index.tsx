@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Modal,
   Form,
@@ -23,7 +23,7 @@ import { Eye, Edit, Delete } from 'lucide-react';
 const { Option } = Select;
 const { TextArea } = Input;
 
-const LessonsAdmin: React.FC = () => {
+const LessonsAdmin: React.FC = React.memo(() => {
   const [lessons, setLessons] = useState<I_Lesson[]>([]);
   const [courses, setCourses] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
@@ -31,7 +31,7 @@ const LessonsAdmin: React.FC = () => {
   const [editingLesson, setEditingLesson] = useState<I_Lesson | null>(null);
   const [form] = Form.useForm();
 
-  const fetchLessons = async () => {
+  const fetchLessons = useCallback(async () => {
     try {
       setLoading(true);
       const response = await lessonsApi.getAllLessons();
@@ -63,21 +63,21 @@ const LessonsAdmin: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const fetchCourses = async () => {
+  const fetchCourses = useCallback(async () => {
     try {
       const response = await coursesApi.getAllCourses();
       setCourses(response.courses || []);
     } catch (error) {
       console.error('Error fetching courses:', error);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchLessons();
     fetchCourses();
-  }, []);
+  }, [fetchLessons, fetchCourses]);
 
   const handleCreate = () => {
     setEditingLesson(null);
@@ -414,6 +414,6 @@ const LessonsAdmin: React.FC = () => {
       </Modal>
     </div>
   );
-};
+});
 
 export default LessonsAdmin;

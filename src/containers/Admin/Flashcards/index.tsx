@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Table, Button, Form, Input, Select, message, Tag } from 'antd';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Table, Button, Form, Input, Select, notification, Tag } from 'antd';
 import { Plus, Edit, Delete } from 'lucide-react';
 import { flashcardsApi } from '../../../services';
 import { FlashcardSet } from '../../../services/flashcardsApi';
@@ -9,7 +9,7 @@ import FormContainer from '../../../components/FormContainer';
 const { Option } = Select;
 const { TextArea } = Input;
 
-const FlashcardsAdmin: React.FC = () => {
+const FlashcardsAdmin: React.FC = React.memo(() => {
   const [flashcardSets, setFlashcardSets] = useState<FlashcardSet[]>([]);
   const [loading, setLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -17,37 +17,45 @@ const FlashcardsAdmin: React.FC = () => {
     useState<FlashcardSet | null>(null);
   const [form] = Form.useForm();
 
-  useEffect(() => {
-    fetchFlashcardSets();
-  }, []);
-
-  const fetchFlashcardSets = async () => {
+  const fetchFlashcardSets = useCallback(async () => {
     setLoading(true);
     try {
       const response = await flashcardsApi.getAllFlashcardSets();
       setFlashcardSets(response.flashcardSets);
     } catch (error) {
-      message.error('Lỗi khi tải danh sách bộ thẻ');
+      notification.error({
+        message: 'Lỗi khi tải danh sách bộ thẻ',
+      });
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchFlashcardSets();
+  }, [fetchFlashcardSets]);
 
   const handleModalOk = async (values: any) => {
     try {
       if (editingFlashcardSet) {
         await flashcardsApi.updateFlashcardSet(editingFlashcardSet._id, values);
-        message.success('Cập nhật bộ thẻ thành công');
+        notification.success({
+          message: 'Cập nhật bộ thẻ thành công',
+        });
       } else {
         await flashcardsApi.createFlashcardSet(values);
-        message.success('Tạo bộ thẻ thành công');
+        notification.success({
+          message: 'Tạo bộ thẻ thành công',
+        });
       }
       setModalVisible(false);
       setEditingFlashcardSet(null);
       form.resetFields();
       fetchFlashcardSets();
     } catch (error) {
-      message.error('Lỗi khi lưu bộ thẻ');
+      notification.error({
+        message: 'Lỗi khi lưu bộ thẻ',
+      });
     }
   };
 
@@ -60,10 +68,14 @@ const FlashcardsAdmin: React.FC = () => {
   const handleDelete = async (id: string) => {
     try {
       await flashcardsApi.deleteFlashcardSet(id);
-      message.success('Xóa bộ thẻ thành công');
+      notification.success({
+        message: 'Xóa bộ thẻ thành công',
+      });
       fetchFlashcardSets();
     } catch (error) {
-      message.error('Lỗi khi xóa bộ thẻ');
+      notification.error({
+        message: 'Lỗi khi xóa bộ thẻ',
+      });
     }
   };
 
@@ -219,6 +231,6 @@ const FlashcardsAdmin: React.FC = () => {
       </ModalContainer>
     </div>
   );
-};
+});
 
 export default FlashcardsAdmin;

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Table,
   Button,
@@ -29,7 +29,7 @@ const api = coursesApi;
 const { Option } = Select;
 const { TextArea } = Input;
 
-const CoursesAdmin: React.FC = () => {
+const CoursesAdmin: React.FC = React.memo(() => {
   const { actions: adminCoursesActions } = useAdminCoursesSlice();
 
   // Sử dụng useSelector để lấy state từ Redux store
@@ -46,7 +46,7 @@ const CoursesAdmin: React.FC = () => {
   const [editingCourse, setEditingCourse] = useState<I_Course | null>(null);
   const [form] = Form.useForm();
 
-  const fetchCourses = async () => {
+  const fetchCourses = useCallback(async () => {
     try {
       console.log('Component: Dispatching ADMIN_COURSES_GET_LIST action');
       // Dispatch action với payload đúng format cho redux-saga-routines
@@ -62,11 +62,11 @@ const CoursesAdmin: React.FC = () => {
       console.error('Component: Error dispatching action:', error);
       message.error('Không thể tải danh sách khóa học');
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchCourses();
-  }, []);
+  }, [fetchCourses]);
 
   const handleCreate = () => {
     setEditingCourse(null);
@@ -415,6 +415,6 @@ const CoursesAdmin: React.FC = () => {
       </Modal>
     </div>
   );
-};
+});
 
 export default CoursesAdmin;

@@ -1,59 +1,59 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useState, useEffect, useCallback } from 'react';
 import { Modal, Form, Input, Select, message, Tag } from 'antd';
 import BaseAdminTable from '../components/BaseAdminTable';
 import type { ColumnsType } from 'antd/es/table';
+import {
+  ADMIN_VOCABULARIES_GET_LIST,
+  useAdminVocabulariesSlice,
+} from './slice';
+import {
+  selectAdminVocabulariesData,
+  selectAdminVocabulariesLoading,
+  selectAdminVocabulariesPagination,
+} from './slice/selectors';
+import {
+  I_Vocabulary,
+  I_VocabularyFilters,
+  I_VocabularyExample,
+} from 'types/shared';
+import { store } from 'store/configureStore';
+import { showNotification } from 'utils/notifications';
+import { useSelector } from 'react-redux';
 
 const { Option } = Select;
 
-interface Vocabulary {
-  _id: string;
-  word: string;
-  pinyin: string;
-  meaning: string;
-  level: string;
-  category: string;
-  examples: string[];
-  createdAt: string;
-  updatedAt: string;
-}
-
-const VocabulariesAdmin: React.FC = () => {
-  const [vocabularies, setVocabularies] = useState<Vocabulary[]>([]);
-  const [loading, setLoading] = useState(false);
+const VocabulariesAdmin: React.FC = React.memo(() => {
+  const { actions } = useAdminVocabulariesSlice();
+  const vocabularies = useSelector(selectAdminVocabulariesData);
+  const loading = useSelector(selectAdminVocabulariesLoading);
+  const pagination = useSelector(selectAdminVocabulariesPagination);
   const [modalVisible, setModalVisible] = useState(false);
-  const [editingVocabulary, setEditingVocabulary] = useState<Vocabulary | null>(
-    null,
-  );
+  const [editingVocabulary, setEditingVocabulary] =
+    useState<I_Vocabulary | null>(null);
   const [form] = Form.useForm();
 
-  const fetchVocabularies = async () => {
+  const fetchVocabularies = useCallback(async () => {
     try {
-      setLoading(true);
-      // Mock data for now
-      const mockVocabularies: Vocabulary[] = [
-        {
-          _id: '1',
-          word: '你好',
-          pinyin: 'nǐ hǎo',
-          meaning: 'Xin chào',
-          level: 'HSK1',
-          category: 'greeting',
-          examples: ['你好，我是小明', '你好吗？'],
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-        },
-      ];
-      setVocabularies(mockVocabularies);
+      store.dispatch(
+        ADMIN_VOCABULARIES_GET_LIST({
+          params: {
+            page: 1,
+            limit: 10,
+          },
+        }),
+      );
     } catch (error) {
-      message.error('Không thể tải danh sách từ vựng');
-    } finally {
-      setLoading(false);
+      showNotification.error(
+        'Không thể tải danh sách từ vựng',
+        error as string,
+      );
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchVocabularies();
-  }, []);
+  }, [fetchVocabularies]);
 
   const handleCreate = () => {
     setEditingVocabulary(null);
@@ -61,20 +61,20 @@ const VocabulariesAdmin: React.FC = () => {
     setModalVisible(true);
   };
 
-  const handleEdit = (vocabulary: Vocabulary) => {
+  const handleEdit = (vocabulary: I_Vocabulary) => {
     setEditingVocabulary(vocabulary);
     form.setFieldsValue({
-      word: vocabulary.word,
+      chinese: vocabulary.chinese,
       pinyin: vocabulary.pinyin,
-      meaning: vocabulary.meaning,
-      level: vocabulary.level,
+      meaning: vocabulary.meaning.primary,
+      level: vocabulary.grammar?.level || vocabulary.hskLevel?.toString(),
       category: vocabulary.category,
-      examples: vocabulary.examples,
+      examples: vocabulary.examples?.map(ex => ex.chinese) || [],
     });
     setModalVisible(true);
   };
 
-  const handleDelete = async (vocabulary: Vocabulary) => {
+  const handleDelete = async (vocabulary: I_Vocabulary) => {
     try {
       message.success('Xóa từ vựng thành công');
       await fetchVocabularies();
@@ -83,8 +83,8 @@ const VocabulariesAdmin: React.FC = () => {
     }
   };
 
-  const handleView = (vocabulary: Vocabulary) => {
-    message.info(`Xem chi tiết từ vựng: ${vocabulary.word}`);
+  const handleView = (vocabulary: I_Vocabulary) => {
+    message.info(`Xem chi tiết từ vựng: ${vocabulary.chinese}`);
   };
 
   const handleModalOk = async () => {
@@ -104,12 +104,12 @@ const VocabulariesAdmin: React.FC = () => {
     }
   };
 
-  const columns: ColumnsType<Vocabulary> = [
+  const columns: ColumnsType<I_Vocabulary> = [
     {
-      title: 'Từ',
-      dataIndex: 'word',
-      key: 'word',
-      sorter: (a, b) => a.word.localeCompare(b.word),
+      title: 'Từ tiếng Trung',
+      dataIndex: 'chinese',
+      key: 'chinese',
+      sorter: (a, b) => a.chinese.localeCompare(b.chinese),
     },
     {
       title: 'Pinyin',
@@ -118,16 +118,16 @@ const VocabulariesAdmin: React.FC = () => {
     },
     {
       title: 'Nghĩa',
-      dataIndex: 'meaning',
+      dataIndex: ['meaning', 'primary'],
       key: 'meaning',
       ellipsis: true,
       width: 150,
     },
     {
       title: 'Cấp độ',
-      dataIndex: 'level',
+      dataIndex: 'hskLevel',
       key: 'level',
-      render: (level: string) => <Tag color="blue">{level}</Tag>,
+      render: (level: number) => <Tag color="blue">HSK{level}</Tag>,
     },
     {
       title: 'Danh mục',
@@ -139,11 +139,11 @@ const VocabulariesAdmin: React.FC = () => {
       title: 'Ví dụ',
       dataIndex: 'examples',
       key: 'examples',
-      render: (examples: string[]) => (
+      render: (examples: I_VocabularyExample[]) => (
         <div className="flex flex-wrap gap-1">
           {examples?.slice(0, 1).map((example, index) => (
             <Tag key={index} color="purple" className="text-xs">
-              {example}
+              {example.chinese}
             </Tag>
           ))}
           {examples && examples.length > 1 && (
@@ -201,6 +201,23 @@ const VocabulariesAdmin: React.FC = () => {
         onRefresh={fetchVocabularies}
         searchPlaceholder="Tìm kiếm theo từ, nghĩa..."
         filters={filters}
+        pagination={{
+          current: pagination?.page || 1,
+          pageSize: pagination?.limit || 10,
+          total: pagination?.count || 0,
+          onChange: (page, pageSize) => {
+            console.log('page', page);
+            console.log('pageSize', pageSize);
+            store.dispatch(
+              ADMIN_VOCABULARIES_GET_LIST({
+                params: {
+                  page,
+                  limit: pageSize,
+                },
+              }),
+            );
+          },
+        }}
       />
 
       {/* Create/Edit Modal */}
@@ -216,9 +233,11 @@ const VocabulariesAdmin: React.FC = () => {
         <Form form={form} layout="vertical" className="mt-4">
           <div className="grid grid-cols-2 gap-4">
             <Form.Item
-              name="word"
-              label="Từ"
-              rules={[{ required: true, message: 'Vui lòng nhập từ' }]}
+              name="chinese"
+              label="Từ tiếng Trung"
+              rules={[
+                { required: true, message: 'Vui lòng nhập từ tiếng Trung' },
+              ]}
             >
               <Input />
             </Form.Item>
@@ -242,17 +261,17 @@ const VocabulariesAdmin: React.FC = () => {
 
           <div className="grid grid-cols-2 gap-4">
             <Form.Item
-              name="level"
-              label="Cấp độ"
-              rules={[{ required: true, message: 'Vui lòng chọn cấp độ' }]}
+              name="hskLevel"
+              label="Cấp độ HSK"
+              rules={[{ required: true, message: 'Vui lòng chọn cấp độ HSK' }]}
             >
               <Select>
-                <Option value="HSK1">HSK1</Option>
-                <Option value="HSK2">HSK2</Option>
-                <Option value="HSK3">HSK3</Option>
-                <Option value="HSK4">HSK4</Option>
-                <Option value="HSK5">HSK5</Option>
-                <Option value="HSK6">HSK6</Option>
+                <Option value={1}>HSK1</Option>
+                <Option value={2}>HSK2</Option>
+                <Option value={3}>HSK3</Option>
+                <Option value={4}>HSK4</Option>
+                <Option value={5}>HSK5</Option>
+                <Option value={6}>HSK6</Option>
               </Select>
             </Form.Item>
 
@@ -277,6 +296,6 @@ const VocabulariesAdmin: React.FC = () => {
       </Modal>
     </div>
   );
-};
+});
 
 export default VocabulariesAdmin;

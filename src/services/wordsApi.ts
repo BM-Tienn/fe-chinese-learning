@@ -47,6 +47,27 @@ export class WordsApi extends BaseApi {
 
   // Admin APIs
   /**
+   * Lấy tất cả từ vựng (Admin)
+   */
+  async getAllWords(filters?: WordFilters): Promise<{
+    items: Word[];
+    pagination: {
+      page: number;
+      limit: number;
+      total: number;
+      pages: number;
+    };
+  }> {
+    try {
+      return await this.get('/words', filters);
+    } catch (error: any) {
+      throw new Error(
+        error.response?.data?.message || 'Không thể tải danh sách từ vựng',
+      );
+    }
+  }
+
+  /**
    * Lấy tất cả từ vựng của user (Admin)
    */
   async getAllUserWords(

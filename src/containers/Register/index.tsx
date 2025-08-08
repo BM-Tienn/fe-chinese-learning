@@ -57,6 +57,7 @@ const Register: React.FC = () => {
             layout="vertical"
             size="large"
             form={form}
+            className="register-form"
           >
             <Form.Item
               name="fullName"

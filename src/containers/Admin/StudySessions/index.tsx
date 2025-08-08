@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Modal, Form, Input, Tag, InputNumber, Switch, DatePicker } from 'antd';
 import BaseAdminTable from '../components/BaseAdminTable';
 import { studySessionsApi } from '../../../services';
@@ -12,7 +12,7 @@ import { T_StudySessionType } from '../../../types/shared/common';
 import { showNotification } from '../../../utils/notifications';
 import dayjs from 'dayjs';
 
-const StudySessionsAdmin: React.FC = () => {
+const StudySessionsAdmin: React.FC = React.memo(() => {
   const [studySessions, setStudySessions] = useState<I_StudySession[]>([]);
   const [loading, setLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -21,7 +21,7 @@ const StudySessionsAdmin: React.FC = () => {
   );
   const [form] = Form.useForm();
 
-  const fetchStudySessions = async () => {
+  const fetchStudySessions = useCallback(async () => {
     try {
       setLoading(true);
       const response = await studySessionsApi.getAllStudySessions();
@@ -31,11 +31,11 @@ const StudySessionsAdmin: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchStudySessions();
-  }, []);
+  }, [fetchStudySessions]);
 
   const handleCreate = () => {
     setEditingSession(null);
@@ -299,6 +299,6 @@ const StudySessionsAdmin: React.FC = () => {
       </Modal>
     </div>
   );
-};
+});
 
 export default StudySessionsAdmin;

@@ -41,7 +41,7 @@ export interface LogoutResponse {
 
 export class AuthApi extends BaseApi {
   constructor() {
-    super(API_CONFIG.FULL_BASE_URL);
+    super(API_CONFIG.FULL_BASE_URL + '/auth');
   }
 
   /**
@@ -71,7 +71,7 @@ export class AuthApi extends BaseApi {
    */
   async logout(): Promise<LogoutResponse['data']> {
     try {
-      return await this.get<LogoutResponse['data']>('/logout');
+      return await this.post<LogoutResponse['data']>('/logout');
     } catch (error: any) {
       throw new Error(error.response?.data?.message || 'Đăng xuất thất bại');
     }

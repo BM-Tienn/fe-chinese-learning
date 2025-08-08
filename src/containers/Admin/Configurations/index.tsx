@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Table,
   Button,
@@ -6,7 +7,7 @@ import {
   Input,
   Select,
   Switch,
-  message,
+  notification,
   Tag,
   InputNumber,
 } from 'antd';
@@ -19,7 +20,7 @@ import FormContainer from '../../../components/FormContainer';
 
 const { Option } = Select;
 
-const ConfigurationsAdmin: React.FC = () => {
+const ConfigurationsAdmin: React.FC = React.memo(() => {
   const [configurations, setConfigurations] = useState<I_Configuration[]>([]);
   const [loading, setLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -27,40 +28,49 @@ const ConfigurationsAdmin: React.FC = () => {
     useState<I_Configuration | null>(null);
   const [form] = Form.useForm();
 
-  useEffect(() => {
-    fetchConfigurations();
-  }, []);
-
-  const fetchConfigurations = async () => {
-    setLoading(true);
+  const fetchConfigurations = useCallback(async () => {
     try {
-      const response = await configurationsApi.getAllConfigurations();
-      setConfigurations(response.configurations);
+      setLoading(true);
+      const response = await configurationsApi.getConfigurations();
+      // setConfigurations(response.configurations);
     } catch (error) {
-      message.error('Lỗi khi tải danh sách cấu hình');
+      notification.error({
+        message: 'Lỗi khi tải danh sách cấu hình',
+      });
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const handleModalOk = async (values: any) => {
+  useEffect(() => {
+    fetchConfigurations();
+  }, [fetchConfigurations]);
+
+  const handleModalOk = async () => {
     try {
+      const values = await form.validateFields();
+
       if (editingConfiguration) {
         await configurationsApi.updateConfiguration(
           editingConfiguration._id,
           values,
         );
-        message.success('Cập nhật cấu hình thành công');
+        notification.success({
+          message: 'Cập nhật cấu hình thành công',
+        });
       } else {
         await configurationsApi.createConfiguration(values);
-        message.success('Tạo cấu hình thành công');
+        notification.success({
+          message: 'Tạo cấu hình thành công',
+        });
       }
+
       setModalVisible(false);
-      setEditingConfiguration(null);
-      form.resetFields();
       fetchConfigurations();
     } catch (error) {
-      message.error('Lỗi khi lưu cấu hình');
+      notification.error({
+        message: 'Lỗi khi lưu cấu hình',
+      });
     }
   };
 
@@ -73,10 +83,14 @@ const ConfigurationsAdmin: React.FC = () => {
   const handleDelete = async (id: string) => {
     try {
       await configurationsApi.deleteConfiguration(id);
-      message.success('Xóa cấu hình thành công');
+      notification.success({
+        message: 'Xóa cấu hình thành công',
+      });
       fetchConfigurations();
     } catch (error) {
-      message.error('Lỗi khi xóa cấu hình');
+      notification.error({
+        message: 'Lỗi khi xóa cấu hình',
+      });
     }
   };
 
@@ -226,6 +240,6 @@ const ConfigurationsAdmin: React.FC = () => {
       </ModalContainer>
     </div>
   );
-};
+});
 
 export default ConfigurationsAdmin;

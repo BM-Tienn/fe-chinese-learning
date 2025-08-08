@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Modal, Form, Input, Select, message, Tag } from 'antd';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Modal, Form, Input, Select, notification, Tag } from 'antd';
 import BaseAdminTable from '../components/BaseAdminTable';
 import type { ColumnsType } from 'antd/es/table';
 
@@ -17,14 +17,14 @@ interface Word {
   updatedAt: string;
 }
 
-const WordsAdmin: React.FC = () => {
+const WordsAdmin: React.FC = React.memo(() => {
   const [words, setWords] = useState<Word[]>([]);
   const [loading, setLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [editingWord, setEditingWord] = useState<Word | null>(null);
   const [form] = Form.useForm();
 
-  const fetchWords = async () => {
+  const fetchWords = useCallback(async () => {
     try {
       setLoading(true);
       // Mock data for now
@@ -43,15 +43,17 @@ const WordsAdmin: React.FC = () => {
       ];
       setWords(mockWords);
     } catch (error) {
-      message.error('Không thể tải danh sách từ');
+      notification.error({
+        message: 'Không thể tải danh sách từ',
+      });
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchWords();
-  }, []);
+  }, [fetchWords]);
 
   const handleCreate = () => {
     setEditingWord(null);
@@ -74,15 +76,21 @@ const WordsAdmin: React.FC = () => {
 
   const handleDelete = async (word: Word) => {
     try {
-      message.success('Xóa từ thành công');
+      notification.success({
+        message: 'Xóa từ thành công',
+      });
       await fetchWords();
     } catch (error) {
-      message.error('Có lỗi xảy ra khi xóa từ');
+      notification.error({
+        message: 'Có lỗi xảy ra khi xóa từ',
+      });
     }
   };
 
   const handleView = (word: Word) => {
-    message.info(`Xem chi tiết từ: ${word.character}`);
+    notification.info({
+      message: `Xem chi tiết từ: ${word.character}`,
+    });
   };
 
   const handleModalOk = async () => {
@@ -90,15 +98,21 @@ const WordsAdmin: React.FC = () => {
       await form.validateFields();
 
       if (editingWord) {
-        message.success('Cập nhật từ thành công');
+        notification.success({
+          message: 'Cập nhật từ thành công',
+        });
       } else {
-        message.success('Tạo từ thành công');
+        notification.success({
+          message: 'Tạo từ thành công',
+        });
       }
 
       setModalVisible(false);
       fetchWords();
     } catch (error) {
-      message.error('Có lỗi xảy ra');
+      notification.error({
+        message: 'Có lỗi xảy ra',
+      });
     }
   };
 
@@ -255,6 +269,6 @@ const WordsAdmin: React.FC = () => {
       </Modal>
     </div>
   );
-};
+});
 
 export default WordsAdmin;

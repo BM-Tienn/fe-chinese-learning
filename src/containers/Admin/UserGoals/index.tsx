@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Modal,
   Form,
@@ -22,14 +22,14 @@ import dayjs from 'dayjs';
 
 const { Option } = Select;
 
-const UserGoalsAdmin: React.FC = () => {
+const UserGoalsAdmin: React.FC = React.memo(() => {
   const [userGoals, setUserGoals] = useState<UserGoal[]>([]);
   const [loading, setLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [editingGoal, setEditingGoal] = useState<UserGoal | null>(null);
   const [form] = Form.useForm();
 
-  const fetchUserGoals = async () => {
+  const fetchUserGoals = useCallback(async () => {
     try {
       setLoading(true);
       const response = await userGoalsApi.getAllUserGoals();
@@ -39,11 +39,11 @@ const UserGoalsAdmin: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchUserGoals();
-  }, []);
+  }, [fetchUserGoals]);
 
   const handleCreate = () => {
     setEditingGoal(null);
@@ -393,6 +393,6 @@ const UserGoalsAdmin: React.FC = () => {
       </Modal>
     </div>
   );
-};
+});
 
 export default UserGoalsAdmin;

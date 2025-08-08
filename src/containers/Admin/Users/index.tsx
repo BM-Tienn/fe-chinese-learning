@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Modal, Form, Input, Select, message, Tag } from 'antd';
 import BaseAdminTable from '../components/BaseAdminTable';
 import { usersApi } from '../../../services';
@@ -30,14 +30,14 @@ interface User {
   updatedAt: string;
 }
 
-const UsersAdmin: React.FC = () => {
+const UsersAdmin: React.FC = React.memo(() => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [form] = Form.useForm();
 
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async () => {
     try {
       setLoading(true);
       const response = await usersApi.getAllUsers();
@@ -47,11 +47,11 @@ const UsersAdmin: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchUsers();
-  }, []);
+  }, [fetchUsers]);
 
   const handleCreate = () => {
     setEditingUser(null);
@@ -401,6 +401,6 @@ const UsersAdmin: React.FC = () => {
       </Modal>
     </div>
   );
-};
+});
 
 export default UsersAdmin;

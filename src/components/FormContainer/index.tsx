@@ -6,7 +6,6 @@ export interface FormContainerProps {
   form?: FormInstance;
   onFinish?: (values: any) => void | Promise<void>;
   initialValues?: any;
-  loading?: boolean;
   validateMessages?: any;
   layout?: 'horizontal' | 'vertical' | 'inline';
   children: React.ReactNode;
@@ -18,7 +17,6 @@ const FormContainer: React.FC<FormContainerProps> = ({
   form,
   onFinish,
   initialValues,
-  loading = false,
   validateMessages,
   layout = 'vertical',
   children,

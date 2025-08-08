@@ -6,9 +6,7 @@ import App from './containers/App';
 import './assets/css/index.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <ConfigProvider locale={viVN}>
-      <App />
-    </ConfigProvider>
-  </React.StrictMode>,
+  <ConfigProvider locale={viVN}>
+    <App />
+  </ConfigProvider>,
 );

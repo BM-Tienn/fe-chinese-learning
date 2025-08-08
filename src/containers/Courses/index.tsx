@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Card, Input, Progress, Badge, Tag, Spin } from 'antd';
+import { Button, Card, Input, Progress, Badge, Tag } from 'antd';
 import {
   Search,
   Filter,
@@ -15,8 +15,9 @@ import {
 import { coursesApi, configurationsApi } from '../../services';
 import { I_CourseSimple, I_Filter } from '../../types/shared/course';
 import { notifications } from '../../utils/notifications';
+import { MainLayout, PageContainer } from '../../components';
 
-const Courses: React.FC = () => {
+const Courses: React.FC = React.memo(() => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
@@ -28,165 +29,118 @@ const Courses: React.FC = () => {
   const [filters, setFilters] = useState<I_Filter[]>([]);
 
   // Fetch courses data and filters
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
+  const fetchData = useCallback(async () => {
+    try {
+      setLoading(true);
 
-        // Fetch courses and filters in parallel
-        const [coursesResponse, filtersResponse] = await Promise.all([
-          coursesApi.getAllCourses(),
-          configurationsApi.getConfigurationsByType('filter'),
-        ]);
+      // Fetch courses and filters in parallel
+      const [coursesResponse, filtersResponse] = await Promise.all([
+        coursesApi.getAllCourses(),
+        configurationsApi.getConfigurationsByType('filter'),
+      ]);
 
-        // Transform API data to match our interface
-        const transformedCourses: I_CourseSimple[] =
-          coursesResponse.courses.map(course => ({
-            _id: course._id,
-            title: course.title,
-            description: course.description,
-            level: course.level,
-            totalLessons: course.totalLessons,
-            completedLessons: 0, // Mock data - should come from API
-            progress: 0, // Mock data - should come from API
-            thumbnail: course.image,
-            createdAt: course.createdAt,
-            updatedAt: course.updatedAt,
-            // Additional properties for display
-            image:
-              course.image ||
-              `https://placehold.co/400x200/ef4444/ffffff?text=${course.level}`,
-            isNew: course.isNewCourse,
-            isPopular: course.isPopular,
-            levelColor: course.levelColor,
-            rating: course.rating,
-            students: course.students,
-            duration: course.duration,
-          }));
+      // Transform API data to match our interface
+      const transformedCourses: I_CourseSimple[] = coursesResponse.courses.map(
+        course => ({
+          _id: course._id,
+          title: course.title,
+          description: course.description,
+          level: course.level,
+          totalLessons: course.totalLessons,
+          completedLessons: 0, // Mock data - should come from API
+          progress: 0, // Mock data - should come from API
+          thumbnail: course.image,
+          createdAt: course.createdAt,
+          updatedAt: course.updatedAt,
+          // Additional properties for display
+          image:
+            course.image ||
+            `https://placehold.co/400x200/ef4444/ffffff?text=${course.level}`,
+          isNew: course.isNewCourse,
+          isPopular: course.isPopular,
+          levelColor: course.levelColor,
+          rating: course.rating,
+          students: course.students,
+          duration: course.duration,
+        }),
+      );
 
-        setCourses(transformedCourses);
-        setFilters(filtersResponse || []);
+      setCourses(transformedCourses);
+      setFilters(filtersResponse || []);
 
-        setError(null);
-      } catch (err: any) {
-        setError(err.message || 'Không thể tải dữ liệu');
-        notifications.general.error('Không thể tải dữ liệu');
-        console.error('Data fetch error:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
+      setError(null);
+    } catch (err: any) {
+      setError(err.message || 'Không thể tải dữ liệu');
+      notifications.general.error('Không thể tải dữ liệu');
+      console.error('Data fetch error:', err);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  const getLevelColor = (color: string) => {
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  const getLevelColor = useCallback((color: string) => {
     const colors = {
       red: 'text-red-500 bg-red-50 dark:bg-red-900/20',
       orange: 'text-orange-500 bg-orange-50 dark:bg-orange-900/20',
       green: 'text-green-500 bg-green-50 dark:bg-green-900/20',
     };
     return colors[color as keyof typeof colors] || colors.red;
-  };
+  }, []);
 
   // Filter courses based on search and selected filter
-  const filteredCourses = courses.filter(course => {
-    const matchesSearch =
-      course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      course.description.toLowerCase().includes(searchTerm.toLowerCase());
+  const filteredCourses = useMemo(
+    () =>
+      courses.filter(course => {
+        const matchesSearch =
+          course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          course.description.toLowerCase().includes(searchTerm.toLowerCase());
 
-    const matchesFilter =
-      selectedFilter === 'all' ||
-      course.level.toLowerCase().replace('hsk', 'hsk') === selectedFilter;
+        const matchesFilter =
+          selectedFilter === 'all' ||
+          course.level.toLowerCase() === selectedFilter.toLowerCase();
 
-    return matchesSearch && matchesFilter;
-  });
+        return matchesSearch && matchesFilter;
+      }),
+    [courses, searchTerm, selectedFilter],
+  );
 
-  if (loading) {
-    return (
-      <div className="flex flex-col h-full">
-        <header className="flex items-center justify-between p-4 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 shadow-sm flex-shrink-0">
-          <div className="flex items-center">
-            <div className="ml-4">
-              <h1 className="text-xl font-semibold text-slate-800 dark:text-slate-200">
-                Khóa học
-              </h1>
-              <p className="text-sm text-slate-500 dark:text-slate-400">
-                Chọn khóa học phù hợp với bạn
-              </p>
-            </div>
-          </div>
-        </header>
-        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-slate-50 dark:bg-slate-900 p-4">
-          <div className="flex items-center justify-center h-full">
-            <Spin size="large" />
-          </div>
-        </main>
-      </div>
-    );
-  }
+  const handleRetry = () => {
+    window.location.reload();
+  };
 
-  if (error) {
-    return (
-      <div className="flex flex-col h-full">
-        <header className="flex items-center justify-between p-4 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 shadow-sm flex-shrink-0">
-          <div className="flex items-center">
-            <div className="ml-4">
-              <h1 className="text-xl font-semibold text-slate-800 dark:text-slate-200">
-                Khóa học
-              </h1>
-              <p className="text-sm text-slate-500 dark:text-slate-400">
-                Chọn khóa học phù hợp với bạn
-              </p>
-            </div>
-          </div>
-        </header>
-        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-slate-50 dark:bg-slate-900 p-4">
-          <div className="flex items-center justify-center h-full">
-            <div className="text-center">
-              <p className="text-red-500 mb-4">{error}</p>
-              <Button onClick={() => window.location.reload()}>Thử lại</Button>
-            </div>
-          </div>
-        </main>
-      </div>
-    );
-  }
+  const rightContent = (
+    <div className="flex items-center space-x-2">
+      <Button
+        type={viewMode === 'grid' ? 'primary' : 'default'}
+        size="small"
+        icon={<BookOpen className="w-4 h-4" />}
+        onClick={() => setViewMode('grid')}
+        className="h-8 w-8 p-0 hidden md:flex"
+      />
+      <Button
+        type={viewMode === 'list' ? 'primary' : 'default'}
+        size="small"
+        icon={<Filter className="w-4 h-4" />}
+        onClick={() => setViewMode('list')}
+        className="h-8 w-8 p-0 hidden md:flex"
+      />
+    </div>
+  );
 
   return (
-    <div className="flex flex-col h-full">
-      {/* Header */}
-      <header className="flex items-center justify-between p-4 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 shadow-sm flex-shrink-0">
-        <div className="flex items-center">
-          <div className="ml-4">
-            <h1 className="text-xl font-semibold text-slate-800 dark:text-slate-200">
-              Khóa học
-            </h1>
-            <p className="text-sm text-slate-500 dark:text-slate-400">
-              Chọn khóa học phù hợp với bạn
-            </p>
-          </div>
-        </div>
-        <div className="flex items-center space-x-2">
-          <Button
-            type={viewMode === 'grid' ? 'primary' : 'default'}
-            size="small"
-            icon={<BookOpen className="w-4 h-4" />}
-            onClick={() => setViewMode('grid')}
-            className="h-8 w-8 p-0 hidden md:flex"
-          />
-          <Button
-            type={viewMode === 'list' ? 'primary' : 'default'}
-            size="small"
-            icon={<Filter className="w-4 h-4" />}
-            onClick={() => setViewMode('list')}
-            className="h-8 w-8 p-0 hidden md:flex"
-          />
-        </div>
-      </header>
-
-      {/* Main content */}
-      <main className="flex-1 overflow-x-hidden overflow-y-auto bg-slate-50 dark:bg-slate-900 p-4">
+    <MainLayout
+      title="Khóa học"
+      subtitle="Chọn khóa học phù hợp với bạn"
+      rightContent={rightContent}
+      loading={loading}
+      error={error}
+      onRetry={handleRetry}
+    >
+      <PageContainer>
         {/* Search and filters */}
         <div className="mb-6 space-y-4">
           <div className="relative">
@@ -540,9 +494,9 @@ const Courses: React.FC = () => {
             </div>
           )}
         </div>
-      </main>
-    </div>
+      </PageContainer>
+    </MainLayout>
   );
-};
+});
 
 export default Courses;
