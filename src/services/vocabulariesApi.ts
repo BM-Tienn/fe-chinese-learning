@@ -357,6 +357,19 @@ export class VocabulariesApi extends BaseApi {
       );
     }
   }
+
+  /**
+   * Lấy từ vựng của bài học
+   */
+  async getLessonVocabulary(lessonId: string): Promise<Vocabulary[]> {
+    try {
+      return await this.get<Vocabulary[]>(`/lessons/${lessonId}/vocabulary`);
+    } catch (error: any) {
+      throw new Error(
+        error.response?.data?.message || 'Không thể tải từ vựng của bài học',
+      );
+    }
+  }
 }
 
 const vocabulariesApi = new VocabulariesApi();

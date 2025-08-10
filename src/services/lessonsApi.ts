@@ -267,6 +267,26 @@ export class LessonsApi extends BaseApi {
       );
     }
   }
+
+  /**
+   * Gửi câu trả lời cho bài học
+   */
+  async submitAnswer(
+    courseId: string,
+    lessonId: string,
+    answer: any,
+  ): Promise<any> {
+    try {
+      return await this.post(
+        `/courses/${courseId}/lessons/${lessonId}/submit-answer`,
+        answer,
+      );
+    } catch (error: any) {
+      throw new Error(
+        error.response?.data?.message || 'Không thể gửi câu trả lời',
+      );
+    }
+  }
 }
 
 const lessonsApi = new LessonsApi();

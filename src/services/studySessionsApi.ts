@@ -310,6 +310,47 @@ export class StudySessionsApi extends BaseApi {
       );
     }
   }
+
+  /**
+   * Gửi câu trả lời cho phiên học tập
+   */
+  async submitAnswer(sessionId: string, answer: any): Promise<any> {
+    try {
+      return await this.post(
+        `/study-sessions/${sessionId}/submit-answer`,
+        answer,
+      );
+    } catch (error: any) {
+      throw new Error(
+        error.response?.data?.message || 'Không thể gửi câu trả lời',
+      );
+    }
+  }
+
+  /**
+   * Hoàn thành phiên học tập
+   */
+  async completeStudySession(
+    sessionId: string,
+    data: {
+      score: number;
+      progress: number;
+      vocabularyStudied?: Array<{
+        vocabulary: string;
+        mastery: number;
+        attempts: number;
+        correctAnswers: number;
+      }>;
+    },
+  ): Promise<StudySession> {
+    try {
+      return await this.patch(`/study-sessions/${sessionId}/complete`, data);
+    } catch (error: any) {
+      throw new Error(
+        error.response?.data?.message || 'Không thể hoàn thành phiên học tập',
+      );
+    }
+  }
 }
 
 const studySessionsApi = new StudySessionsApi();

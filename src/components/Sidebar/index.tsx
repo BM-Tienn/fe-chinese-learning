@@ -269,7 +269,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             <GraduationCap className="w-6 h-6 text-indigo-500 flex-shrink-0" />
             {!isCollapsed && (
               <span className="ml-3 text-lg font-bold text-indigo-500 truncate">
-                Hán Ngữ Thông
+                Chinese Learning
               </span>
             )}
           </div>

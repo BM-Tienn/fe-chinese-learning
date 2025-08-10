@@ -44,35 +44,37 @@ const Flashcards: React.FC = React.memo(() => {
       ]);
 
       // Transform API data to match our interface
-      const transformedSets: I_FlashcardSetSimple[] = setsResponse.map(set => ({
-        _id: set._id,
-        title: set.title,
-        description: set.description,
-        category: set.category,
-        level: set.level,
-        totalCards: set.cardCount || 0,
-        masteredCards: 0, // Mock data - should come from API
-        learningCards: 0, // Mock data - should come from API
-        notStartedCards: set.cardCount || 0, // Mock data - should come from API
-        createdAt: set.createdAt,
-        updatedAt: set.updatedAt,
-        // Additional properties for display
-        isNew:
-          new Date(set.createdAt).getTime() >
-          Date.now() - 7 * 24 * 60 * 60 * 1000, // New if created within 7 days
-        isRecommended: set.isRecommended || false,
-        difficulty:
-          (set.cardCount || 0) <= 10
-            ? 'Dễ'
-            : (set.cardCount || 0) <= 20
-              ? 'Trung bình'
-              : 'Khó',
-        timeEstimate:
-          set.timeEstimate || `${Math.ceil((set.cardCount || 0) / 5)} phút`,
-        lastStudied: '2 giờ trước', // Mock data
-        mastery: 0, // Mock data - should come from API
-        color: set.color || 'red',
-      }));
+      const transformedSets: I_FlashcardSetSimple[] = setsResponse?.map(
+        set => ({
+          _id: set._id,
+          title: set.title,
+          description: set.description,
+          category: set.category,
+          level: set.level,
+          totalCards: set.cardCount || 0,
+          masteredCards: 0, // Mock data - should come from API
+          learningCards: 0, // Mock data - should come from API
+          notStartedCards: set.cardCount || 0, // Mock data - should come from API
+          createdAt: set.createdAt,
+          updatedAt: set.updatedAt,
+          // Additional properties for display
+          isNew:
+            new Date(set.createdAt).getTime() >
+            Date.now() - 7 * 24 * 60 * 60 * 1000, // New if created within 7 days
+          isRecommended: set.isRecommended || false,
+          difficulty:
+            (set.cardCount || 0) <= 10
+              ? 'Dễ'
+              : (set.cardCount || 0) <= 20
+                ? 'Trung bình'
+                : 'Khó',
+          timeEstimate:
+            set.timeEstimate || `${Math.ceil((set.cardCount || 0) / 5)} phút`,
+          lastStudied: '2 giờ trước', // Mock data
+          mastery: 0, // Mock data - should come from API
+          color: set.color || 'red',
+        }),
+      );
 
       // Transform configuration data to match our interfaces
       const topicsData: I_Configuration[] = configResponse.filter(

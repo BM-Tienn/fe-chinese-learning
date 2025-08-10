@@ -300,6 +300,22 @@ export class CoursesApi extends BaseApi {
       );
     }
   }
+
+  /**
+   * Cập nhật tiến độ khóa học
+   */
+  async updateCourseProgress(
+    courseId: string,
+    data: { lessonId: string; completed: boolean; score?: number },
+  ): Promise<any> {
+    try {
+      return await this.patch(`/courses/${courseId}/progress`, data);
+    } catch (error: any) {
+      throw new Error(
+        error.response?.data?.message || 'Không thể cập nhật tiến độ khóa học',
+      );
+    }
+  }
 }
 
 const coursesApi = new CoursesApi();
